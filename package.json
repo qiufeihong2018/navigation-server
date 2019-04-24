@@ -1,0 +1,25 @@
+{
+  "name": "express-rest",
+  "version": "0.1.1",
+  "description": "express rest application quick start",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint ."
+  },
+  "keywords": [
+    "express"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "http://192.168.3.2/dhb/express-rest.git"
+  },
+  "author": "DHBing",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.16.4"
+  },
+  "devDependencies": {
+    "eslint": "^5.16.0"
+  }
+}
