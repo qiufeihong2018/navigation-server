@@ -1,104 +1,39 @@
 'use strict';
 
-var winston = require('winston');
-var config = require('../config')();
+const { createLogger, format, transports } = require('winston');
+const config = require('../config')();
+const MODE = require('../constant/system').MODE;
+const { combine, timestamp, label, printf } = format;
 
-exports.createLogger = function() {
-  const logFile = config.logFile;
-  const transports = [];
+let mode = process.env.NODE_ENV;
+if (!mode) mode = MODE.DEVE;
 
-  if (logFile) {
-    transports.push(new (winston.transports.File)({
-      level: 'info',
-      filename: logFile,
-      timestamp: function() {
-        return dateFormat('yyyy-MM-dd hh:mm:ss');
-      },
-      formatter: function(options) {
-        // Return string will be passed to logger.
-        return options.timestamp() + ' [' + options.level.toUpperCase() + '] ' +
-        (undefined !== options.message ? options.message : '') +
-        (options.meta && Object.keys(options.meta).length ?
-          '\n\t' + JSON.stringify(options.meta) : '');
-      }
-    }));
+let logFile = config.logFile;
+if (!logFile) logFile = '../log/log';
+
+const trans = [];
+const consoleTrans = new transports.Console({ level: 'debug' });
+const fileTrans = new transports.File({ filename: logFile, level: 'info' });
+
+exports.createLogger = function(source) {
+  if (mode === MODE.DEVE) {
+    trans.push(consoleTrans);
+    fileTrans.level = 'debug';
+    trans.push(fileTrans);
+  } else if (mode === MODE.PROD) {
+    trans.push(fileTrans);
   } else {
-    transports.push(new (winston.transports.Console)({
-      level: 'debug',
-      timestamp: function() {
-        return dateFormat('yyyy-MM-dd hh:mm:ss');
-      },
-      formatter: function(options) {
-        // Return string will be passed to logger.
-        return options.timestamp() +
-        ' [' + options.level.toUpperCase() + '] ' +
-        (undefined !== options.message ? options.message : '') +
-        (options.meta && Object.keys(options.meta).length ?
-          '\n\t' + JSON.stringify(options.meta) : '');
-      }
-    }));
+    trans.push(fileTrans);
   }
-
-  return new (winston.createLogger)({
-    transports: transports
+  const myFormat = combine(
+    label({ label: source }),
+    timestamp({ format: 'YYYY-MM-DD hh:mm:ss' }),
+    printf(({ level, message, label, timestamp }) => {
+      return `${timestamp} [${label}][${level.toUpperCase()}]: ${message}`;
+    })
+  );
+  return new (createLogger)({
+    format: myFormat,
+    transports: trans
   });
 };
-
-exports.getDateString = function(date) {
-  if (!date) {
-    date = new Date();
-  }
-  var year = date.getFullYear().toString();
-  var month = date.getMonth().toString();
-  var day = date.getDate().toString();
-  var hour = date.getHours().toString();
-  var min = date.getMinutes().toString();
-
-  return year + '-' + month + '-' + day + ' ' + hour + ':' + min;
-};
-
-/**
- * this a function to transform a Date instance
- * to a giving format string.
- * for example:
- *  dataeFormat("yyyy-MM-dd hh:mm:ss S")
- * @param format string.This param is to describe date format, like "yyyy-MM-dd hh:mm:ss S"
- * @date Date instance. if this param is null, then this function will set current date as the date
- * */
-const dateFormat = exports.dateFormat = function(format, date) {
-  if (!date) {
-    date = new Date();
-  }
-  var o = {
-    'M+': date.getMonth() + 1,                 // 月份
-    'd+': date.getDate(),                    // 日
-    'h+': date.getHours(),                   // 小时
-    'm+': date.getMinutes(),                 // 分
-    's+': date.getSeconds(),                 // 秒
-    'S+': date.getMilliseconds()             // 毫秒
-  };
-  if (/(y+)/.test(format))
-    format = format.replace(RegExp.$1, strConcat(date.getFullYear(), RegExp.$1.length));
-  for (var k in o)
-    if (new RegExp('(' + k + ')').test(format)) {
-      const timeStr = (('' + o[k]).length === 1) ? ('0' + o[k]) : o[k];
-      format = format.replace(RegExp.$1, strConcat(timeStr, RegExp.$1.length));
-    }
-
-  return format;
-};
-
-function strConcat(str, length) {
-
-  let string = '' + str;
-  if (string.length >= length) {
-    return string.substring(string.length - length, string.length);
-  } else {
-    let count = string.length;
-    while (count < length) {
-      string = ' ' + string;
-      count++;
-    }
-    return string;
-  }
-}

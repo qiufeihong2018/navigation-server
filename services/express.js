@@ -3,39 +3,15 @@
 const express = require('express');
 const session = require('express-session');
 const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
+
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
 const config = require('../config')();
-const log = require('./logger').createLogger();
+const mongo = require('./mongo');
+// const log = require('./logger').createLogger('express');
 const app = express();
-
-// Connect to mongodb
-function connect() {
-  const options = {
-    socketTimeoutMS: 3000,
-    keepAlive: true,
-    reconnectTries: 3,
-    useNewUrlParser: true
-  };
-  mongoose.connect(config.database, options);
-}
-connect();
-
-// Mongoose error handler
-mongoose.connection.on('error', function(err) {
-  // logger.error(err);
-});
-
-// Mongoose reconnect when closed
-mongoose.connection.on('disconnected', function() {
-  connect();
-});
-
-mongoose.connection.on('connected', function() {
-  log.info('mongodb connected successfull');
-});
+mongo.connect();
 
 // Session configuration
 const sess = {
