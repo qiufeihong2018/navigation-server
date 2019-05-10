@@ -1,5 +1,5 @@
-### Environment
-
+## 1 Environment
+* ubuntu v16.04
 * node v10.15.3
 * mongodb v4.0.9
 
@@ -9,7 +9,7 @@
 
 
 
-##### node installation
+### node installation
 1. download node file
 ```
 curl -O https://nodejs.org/dist/v10.15.3/node-v10.15.3-linux-x64.tar.xz
@@ -27,7 +27,7 @@ node -v
 npm -v
 ```
 
-##### mongodb installation
+### mongodb installation
 1. download mongodb deb file
 ```
 curl -O https://repo.mongodb.org/apt/ubuntu/dists/xenial/mongodb-org/4.0/multiverse/binary-amd64/mongodb-org-server_4.0.9_amd64.deb
