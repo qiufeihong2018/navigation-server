@@ -34,16 +34,18 @@ const dailyRotateFileTrans = new (transports.DailyRotateFile)({
   maxSize: '20m',
   maxFiles: '30d'
 });
+
+if (mode === MODE.DEVE) {
+  trans.push(consoleTrans);
+  fileTrans.level = 'debug';
+  trans.push(fileTrans);
+} else if (mode === MODE.PROD) {
+  trans.push(dailyRotateFileTrans);
+} else {
+  trans.push(fileTrans);
+}
+
 exports.createLogger = function(source) {
-  if (mode === MODE.DEVE) {
-    trans.push(consoleTrans);
-    fileTrans.level = 'debug';
-    trans.push(fileTrans);
-  } else if (mode === MODE.PROD) {
-    trans.push(dailyRotateFileTrans);
-  } else {
-    trans.push(fileTrans);
-  }
   const myFormat = combine(
     label({ label: source }),
     timestamp({ format: 'YYYY-MM-DD hh:mm:ss' }),

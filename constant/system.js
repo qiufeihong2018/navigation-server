@@ -5,3 +5,7 @@ exports.MODE = {
   PROD: 'production',
   LOCA: 'local'
 };
+
+exports.ROLE = {
+  SYS_ADMIN: ''
+};
