@@ -7,78 +7,184 @@ const log = require('../services/logger').createLogger('userAuthentication');
 const AUTH_ERR = require('../constant/errMessage').AUTH;
 const COMM_ERR = require('../constant/errMessage').COMMON;
 
-// Return the current user info
+/**
+ * @api {get} /v1/auth/ Request auth information
+ * @apiName GetAuthInfo
+ * @apiGroup userAuthentication
+ *
+ * @apiParam {null} null.
+ *
+ * @apiSuccess {String} username  The username of the current user.
+ * @apiSuccess {date} last  User last logon time.
+ *
+ * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 200 OK
+ *     {
+ *       "username": "test",
+ *       "last": "2019-06-03T06:22:53.567Z"
+ *     }
+ *
+ * @apiError NOT_LOGIN The current User was not logon.
+ *
+ * @apiErrorExample Error-Response:
+ *     HTTP/1.1 401 Unauthorized
+ *     {
+ *       "err": "NOT_LOGIN",
+ *       "message": "User has not logon in!"
+ *     }
+ */
 router.get('/', function(req, res) {
   if (req.user) {
     res.json({
-      data: req.user
+      username: req.user.username,
+      last: req.user.last
     });
   } else {
-    res.json({
+    res.status(401).json({
       err: 'NOT_LOGIN',
       message: AUTH_ERR.NOT_LOGIN
     });
   }
 });
 
+/**
+ * @api {post} /v1/auth/register Gegister new user
+ * @apiName RegisterUser
+ * @apiGroup userAuthentication
+ *
+ * @apiParam {String} username  New user's name.
+ * @apiParam {String} password  New user's password.
+ *
+ * @apiSuccess {String} username  The username of the register user.
+ * @apiSuccess {string} message  The registering success info.
+ *
+ * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 200 OK
+ *     {
+ *       "username": "gushen",
+ *       "message": "User registered successful"
+ *     }
+ *
+ * @apiError REGISTER_FAILURE The register failure.
+ *
+ * @apiErrorExample Error-Response:
+ *     HTTP/1.1 500 Internal Server Error
+ *    {
+ *      "err": "REGISTER_FAILURE",
+ *      "message": "User register failure!"
+ *    }
+ */
 router.post('/register', function(req, res, next) {
   User.register(new User({ username: req.body.username }), req.body.password, function(err) {
     if (err) {
       log.error(err);
-      res.json({
+      res.status(500).json({
         err: 'REGISTER_FAILURE',
         message: AUTH_ERR.REGISTER_FAILURE
       });
       return;
     }
 
-    log.info('user' + req.body.username + ' registered successful!');
+    log.info('user ' + req.body.username + ' registered successful!');
     res.json({
-      data: { 'username': req.body.username },
+      username: req.body.username,
       message: 'User registered successful'
     });
 
   });
 });
 
+/**
+ * @api {post} /v1/auth/login User login
+ * @apiName UserLogin
+ * @apiGroup userAuthentication
+ *
+ * @apiParam {String} username  User's name.
+ * @apiParam {String} password  User's password.
+ *
+ * @apiSuccess {String} username  The username of the login user.
+ * @apiSuccess {string} password  The password of the login user.
+ *
+ * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 200 OK
+ *    {
+ *      "username": "test",
+ *      "message": "Authentication Success"
+ *    }
+ *
+ * @apiError REGISTER_FAILURE The register failure.
+ *
+ * @apiErrorExample Error-Response:
+ *     HTTP/1.1 401 Unauthorized
+ *    {
+ *      "err": "AUTHENTICATE_FAILURE",
+ *      "message": "Authenticate failure"
+ *   }
+ */
 router.post('/login', isAhenticated, passport.authenticate('local'), function(req, res) {
   if (req.user) {
     log.info(`${req.user.username} login in successful`);
     res.json({
-      data: { username: req.user.username },
+      username: req.user.username,
       message: 'Authentication Success'
     });
     return;
   }
   log.info(`${req.user.username} login failure`);
-  res.json({
+  res.status(401).json({
     err: 'AUTHENTICATE_FAILURE',
     message: `${req.user.username} login failure`
   });
 
 });
 
-router.post('/deleteUser', function(req, res) {
+/**
+ * @api {post} /v1/auth/user/:username User delete
+ * @apiName UserDelete
+ * @apiGroup userAuthentication
+ *
+ * @apiParam {String} username  User's name.
+ *
+ * @apiSuccess {String} username  The username of the deleted user.
+ * @apiSuccess {string} message  The message if deleting successful.
+ *
+ * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 200 OK
+ *   {
+ *     "username": "gushen",
+ *     "message": "Delete User Successful"
+ *   }
+ *
+ * @apiError NOT_LOGIN The register failure.
+ *
+ * @apiErrorExample Error-Response:
+ *     HTTP/1.1 401 Unauthorized
+ *    {
+ *      "err": "NOT_LOGIN",
+ *      "message": "User has not logon in!"
+ *    }
+ */
+router.delete('/user/:username', function(req, res) {
   if (!req.user) {
-    res.json({
+    res.status(401).json({
       err: 'NOT_LOGIN',
       message: AUTH_ERR.NOT_LOGIN
     });
     return;
   }
 
-  if (!req.body.deleteUsername) {
-    res.json({
-      err: 'PARAMS_NOT_CORRECT',
-      message: 'No deleted user name'
-    });
-    return;
-  }
+  // if (!req.params.username) {
+  //   res.json({
+  //     err: 'PARAMS_NOT_CORRECT',
+  //     message: 'No deleted user name'
+  //   });
+  //   return;
+  // }
 
-  User.deleteOne({ username: req.body.deleteUsername }, (err) => {
+  User.deleteOne({ username: req.params.username }, (err) => {
     if (err) {
       log.error(err);
-      res.json({
+      res.status(500).json({
         err: 'SERVER_ERROR',
         message: COMM_ERR.SERVER_ERROR
       });
@@ -86,20 +192,47 @@ router.post('/deleteUser', function(req, res) {
     }
 
     res.json({
-      data: { deleteUserName: req.body.deleteUsername },
-      message: 'Delete User Success'
+      username: req.params.username,
+      message: 'Delete User Successful'
     });
 
-    log.info(`${req.body.deleteUsername} has been deleted`);
+    log.info(`${req.params.username} has been deleted`);
   });
 });
 
-
-router.post('/changePassword', function(req, res) {
+/**
+ * @api {post} /v1/auth/changepassword User change password
+ * @apiName UserChangePassword
+ * @apiGroup userAuthentication
+ *
+ * @apiParam {String} username  User's name.
+ * @apiParam {String} oldpassword  User's old password.
+ * @apiParam {String} newpassword  User's old password.
+ *
+ * @apiSuccess {String} username  The username of the user.
+ * @apiSuccess {string} message  The message if changing password successful.
+ *
+ * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 200 OK
+ *   {
+ *     "username": "test",
+ *     "message": "change password successful"
+ *   }
+ *
+ * @apiError AUTHENTICATE_FAILURE The register failure.
+ *
+ * @apiErrorExample Error-Response:
+ *     HTTP/1.1 401 Unauthorized
+ *   {
+ *     "err": "AUTHENTICATE_FAILURE",
+ *     "message": "Password or username is incorrect"
+ *   }
+ */
+router.post('/changepassword', function(req, res) {
   User.findOne({ 'username': req.body.username }, (err, user) => {
     if (err) {
       log.error(err);
-      res.json({
+      res.status(500).json({
         err: 'SERVER_ERROR',
         message: COMM_ERR.SERVER_ERROR
       });
@@ -107,26 +240,26 @@ router.post('/changePassword', function(req, res) {
     }
 
     if (!user) {
-      res.json({
+      res.status(500).json({
         err: 'USER_NOT_EXIST',
         message: AUTH_ERR.USER_NOT_EXIST
       });
       return;
     }
 
-    user.changePassword(req.body.oldPassword, req.body.newPassword, (err, value) => {
+    user.changePassword(req.body.oldpassword, req.body.newpassword, (err, value) => {
       if (err) {
         log.error(err);
-        res.json({
-          err: 'SERVER_ERROR',
-          message: COMM_ERR.SERVER_ERROR
+        res.status(401).json({
+          err: 'AUTHENTICATE_FAILURE',
+          message: err.message
         });
         return;
       }
 
       log.info(`${req.body.username} change password successful`);
       res.json({
-        data: { 'username': req.body.username },
+        username: req.body.username,
         message: 'change password successful'
       });
 
@@ -134,11 +267,34 @@ router.post('/changePassword', function(req, res) {
   });
 });
 
-
+/**
+ * @api {get} /v1/auth/logout User login out
+ * @apiName UserLogout
+ * @apiGroup userAuthentication
+ *
+ * @apiSuccess {String} username  The username of the user.
+ * @apiSuccess {string} message  The message if user login out successful.
+ *
+ * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 200 OK
+ *     {
+ *       "username": "test",
+ *       "message": "logout successful"
+ *     }
+ *
+ * @apiError NOT_LOGIN The register failure.
+ *
+ * @apiErrorExample Error-Response:
+ *     HTTP/1.1 401 Unauthorized
+ *   {
+ *     "err": "NOT_LOGIN",
+ *     "message": "No user has been logon"
+ *   }
+ */
 router.get('/logout', function(req, res) {
   const user = req.user;
   if (!user) {
-    res.json({
+    res.status(401).json({
       err: 'NOT_LOGIN',
       message: 'No user has been logon'
     });
@@ -149,7 +305,7 @@ router.get('/logout', function(req, res) {
   req.logout();
   if (!req.user) {
     res.json({
-      data: { username: user.username },
+      username: user.username,
       message: 'logout successful'
     });
 
@@ -157,7 +313,7 @@ router.get('/logout', function(req, res) {
     return;
   }
 
-  res.json({
+  res.status(500).json({
     err: 'SERVER_ERROR',
     message: 'logout failure!'
   });

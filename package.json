@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "apidoc": "/usr/local/share/node-v10.15.3-linux-x64/bin/apidoc -i routers/"
   },
   "keywords": [
     "express"

@@ -1,0 +1,6 @@
+{ "name": "express-rest",
+  "version": "0.1.0",
+  "description": "express basic example",
+  "title": "express rest demo",
+  "url" : "https://localhost:5001"
+}
