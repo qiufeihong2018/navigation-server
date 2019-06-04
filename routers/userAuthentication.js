@@ -8,8 +8,8 @@ const AUTH_ERR = require('../constant/errMessage').AUTH;
 const COMM_ERR = require('../constant/errMessage').COMMON;
 
 /**
- * @api {get} /v1/auth/ Request auth information
- * @apiName GetAuthInfo
+ * @api {get} /v1/auth/ User auth information
+ * @apiName UserAuthInfo
  * @apiGroup userAuthentication
  *
  * @apiParam {null} null.
@@ -48,8 +48,8 @@ router.get('/', function(req, res) {
 });
 
 /**
- * @api {post} /v1/auth/register Gegister new user
- * @apiName RegisterUser
+ * @api {post} /v1/auth/register User Register
+ * @apiName UserRegister
  * @apiGroup userAuthentication
  *
  * @apiParam {String} username  New user's name.
@@ -102,8 +102,8 @@ router.post('/register', function(req, res, next) {
  * @apiParam {String} username  User's name.
  * @apiParam {String} password  User's password.
  *
- * @apiSuccess {String} username  The username of the login user.
- * @apiSuccess {string} password  The password of the login user.
+ * @apiSuccess {String} username  The username of the register user.
+ * @apiSuccess {string} message  The messgaer if the user login in successful.
  *
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK
@@ -282,7 +282,7 @@ router.post('/changepassword', function(req, res) {
  *       "message": "logout successful"
  *     }
  *
- * @apiError NOT_LOGIN The register failure.
+ * @apiError NOT_LOGIN There is no user logon in.
  *
  * @apiErrorExample Error-Response:
  *     HTTP/1.1 401 Unauthorized

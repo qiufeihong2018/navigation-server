@@ -45,3 +45,15 @@ sudo systemctl status mongod.service
 // test
 mongo
 ```
+
+### apidoc installation
+```
+ sudo npm install apidoc -g
+// pay attention to the path of apidoc installed
+// /usr/local/share/node-v10.15.3-linux-x64/bin/apidoc -> /usr/local/share/node-v10.15.3-linux-x64/lib/node_modules/apidoc/bin/apidoc
++ apidoc@0.17.7
+// add `apidoc` command to `scripts` of package.json
+// "apidoc": "/usr/local/share/node-v10.15.3-linux-x64/bin/apidoc -i routers/"
+```
+
+
