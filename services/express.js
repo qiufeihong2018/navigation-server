@@ -27,7 +27,9 @@ exports.start = function() {
 
   app.use(bodyParser.json()); // For parsing application/json
   // For parsing application/x-www-form-urlencoded
-  app.use(bodyParser.urlencoded({ extended: true }));
+  app.use(bodyParser.urlencoded({
+    extended: true
+  }));
   app.use(session(sess)); // Set session middleware
 
   // passport config
@@ -42,7 +44,9 @@ exports.start = function() {
 
   // start server
   app.set('port', config.expressHttpPort); // Set http port
+
   app.listen(config.expressHttpPort, () => {
+    // 开启端口打印日志
     log.info(`express running on ${config.expressHttpPort} port`);
   });
 };

@@ -33,6 +33,7 @@ const COMM_ERR = require('../constant/errMessage').COMMON;
  *       "message": "User has not logon in!"
  *     }
  */
+
 router.get('/', function(req, res) {
   if (req.user) {
     res.json({

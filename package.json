@@ -6,7 +6,11 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint .",
-    "apidoc": "/usr/local/share/node-v10.15.3-linux-x64/bin/apidoc -i routers/"
+    "fix": "eslint --fix .",
+    "apidoc": "/usr/local/share/node-v10.15.3-linux-x64/bin/apidoc -i routers/",
+    "istanbul": "istanbul cover _mocha",
+    "mochawesome": "./node_modules/.bin/mocha --reporter mochawesome",
+    "dev": "node index.js"
   },
   "keywords": [
     "express"
@@ -29,6 +33,20 @@
     "winston-daily-rotate-file": "^3.9.0"
   },
   "devDependencies": {
-    "eslint": "^5.16.0"
+    "assert": "^2.0.0",
+    "commitizen": "^3.1.1",
+    "cz-conventional-changelog": "^2.1.0",
+    "db": "^1.1.1",
+    "eslint": "^5.16.0",
+    "istanbul": "^0.4.5",
+    "mocha": "^6.1.4",
+    "mochawesome": "^4.0.0",
+    "should": "^13.2.3",
+    "supertest": "^4.0.2"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }

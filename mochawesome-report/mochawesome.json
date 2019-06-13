@@ -1,0 +1,353 @@
+{
+  "stats": {
+    "suites": 9,
+    "tests": 5,
+    "passes": 4,
+    "pending": 0,
+    "failures": 1,
+    "start": "2019-06-13T03:44:31.428Z",
+    "end": "2019-06-13T03:44:32.587Z",
+    "duration": 1159,
+    "testsRegistered": 5,
+    "passPercent": 80,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "c007c862-f7b0-4dbf-b890-38bf827c6e40",
+      "title": "",
+      "fullFile": "",
+      "file": "",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "6b8e31ee-5877-45f1-bd74-5390dfa875c1",
+          "title": "userAuthentication",
+          "fullFile": "/home/devue/guyi/express-rest/test/test.js",
+          "file": "/test/test.js",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [],
+          "suites": [
+            {
+              "uuid": "1038f728-adf6-4478-860d-fd0245fad226",
+              "title": "UserRegister",
+              "fullFile": "/home/devue/guyi/express-rest/test/test.js",
+              "file": "/test/test.js",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [],
+              "suites": [
+                {
+                  "uuid": "66fe4d72-f75f-4dab-81aa-48b1ba5ba49c",
+                  "title": "POST /register",
+                  "fullFile": "/home/devue/guyi/express-rest/test/test.js",
+                  "file": "/test/test.js",
+                  "beforeHooks": [],
+                  "afterHooks": [],
+                  "tests": [
+                    {
+                      "title": "register success",
+                      "fullTitle": "userAuthentication UserRegister POST /register register success",
+                      "timedOut": false,
+                      "duration": 0,
+                      "state": "failed",
+                      "speed": null,
+                      "pass": false,
+                      "fail": true,
+                      "pending": false,
+                      "context": null,
+                      "code": "request(url)\n  .post('/api/v1/auth/register')\n  .send(user)\n  .expect(200)\n  .end(function(err, res) {\n    res.body.should.containEql({\n      message: 'User registered successful'\n    });\n    if (err) throw err;\n    done();\n  });",
+                      "err": {
+                        "message": "AssertionError: expected Object { err: 'REGISTER_FAILURE', message: 'User register failure!' } to contain Object { message: 'User registered successful' }\n    expected 'User register failure!' to have key message\n        expected 'User register failure!' to equal 'User registered successful'",
+                        "estack": "AssertionError: expected Object { err: 'REGISTER_FAILURE', message: 'User register failure!' } to contain Object { message: 'User registered successful' }\n    expected 'User register failure!' to have key message\n        expected 'User register failure!' to equal 'User registered successful'\n    at Assertion.fail (node_modules/should/cjs/should.js:275:17)\n    at Assertion.value [as containEql] (node_modules/should/cjs/should.js:356:19)\n    at Test.<anonymous> (test/test.js:28:29)\n    at Test.assert (node_modules/supertest/lib/test.js:181:6)\n    at localAssert (node_modules/supertest/lib/test.js:131:12)\n    at /home/devue/guyi/express-rest/node_modules/supertest/lib/test.js:128:5\n    at Test.Request.callback (node_modules/superagent/lib/node/index.js:728:3)\n    at parser (node_modules/superagent/lib/node/index.js:916:18)\n    at IncomingMessage.res.on (node_modules/superagent/lib/node/parsers/json.js:19:7)\n    at endReadableNT (_stream_readable.js:1098:12)\n    at process.internalTickCallback (internal/process/next_tick.js:72:19)",
+                        "diff": null
+                      },
+                      "uuid": "5f794afa-fd18-4580-a96b-2bb292b9d44f",
+                      "parentUUID": "66fe4d72-f75f-4dab-81aa-48b1ba5ba49c",
+                      "isHook": false,
+                      "skipped": false
+                    },
+                    {
+                      "title": "repeated registration failure.",
+                      "fullTitle": "userAuthentication UserRegister POST /register repeated registration failure.",
+                      "timedOut": false,
+                      "duration": 7,
+                      "state": "passed",
+                      "speed": "fast",
+                      "pass": true,
+                      "fail": false,
+                      "pending": false,
+                      "context": null,
+                      "code": "request(url)\n  .post('/api/v1/auth/register')\n  .send(user)\n  .expect(500)\n  .end(function(err, res) {\n    res.body.should.containEql({\n      err: 'REGISTER_FAILURE'\n    });\n    if (err) throw err;\n    done();\n  });",
+                      "err": {},
+                      "uuid": "18377447-0255-47ad-977c-c6c75da784df",
+                      "parentUUID": "66fe4d72-f75f-4dab-81aa-48b1ba5ba49c",
+                      "isHook": false,
+                      "skipped": false
+                    }
+                  ],
+                  "suites": [],
+                  "passes": [
+                    "18377447-0255-47ad-977c-c6c75da784df"
+                  ],
+                  "failures": [
+                    "5f794afa-fd18-4580-a96b-2bb292b9d44f"
+                  ],
+                  "pending": [],
+                  "skipped": [],
+                  "duration": 7,
+                  "root": false,
+                  "rootEmpty": false,
+                  "_timeout": 2000
+                }
+              ],
+              "passes": [],
+              "failures": [],
+              "pending": [],
+              "skipped": [],
+              "duration": 0,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 2000
+            },
+            {
+              "uuid": "19ac0be5-0edd-43fc-9bc4-3c78cebcfd5e",
+              "title": "UserLogin",
+              "fullFile": "/home/devue/guyi/express-rest/test/test.js",
+              "file": "/test/test.js",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [],
+              "suites": [
+                {
+                  "uuid": "523736b9-997f-4d94-a26d-ee63e2983efa",
+                  "title": "POST /login",
+                  "fullFile": "/home/devue/guyi/express-rest/test/test.js",
+                  "file": "/test/test.js",
+                  "beforeHooks": [],
+                  "afterHooks": [],
+                  "tests": [
+                    {
+                      "title": "login success",
+                      "fullTitle": "userAuthentication UserLogin POST /login login success",
+                      "timedOut": false,
+                      "duration": 559,
+                      "state": "passed",
+                      "speed": "slow",
+                      "pass": true,
+                      "fail": false,
+                      "pending": false,
+                      "context": null,
+                      "code": "request(url)\n  .post('/api/v1/auth/login')\n  .send(user)\n  .expect(200)\n  .end(function(err, res) {\n    res.body.should.containEql({\n      message: 'Authentication Success'\n    });\n    if (err) throw err;\n    done();\n  });",
+                      "err": {},
+                      "uuid": "c5507e75-0c75-4a82-9ec0-38c60c609f6e",
+                      "parentUUID": "523736b9-997f-4d94-a26d-ee63e2983efa",
+                      "isHook": false,
+                      "skipped": false
+                    }
+                  ],
+                  "suites": [],
+                  "passes": [
+                    "c5507e75-0c75-4a82-9ec0-38c60c609f6e"
+                  ],
+                  "failures": [],
+                  "pending": [],
+                  "skipped": [],
+                  "duration": 559,
+                  "root": false,
+                  "rootEmpty": false,
+                  "_timeout": 2000
+                }
+              ],
+              "passes": [],
+              "failures": [],
+              "pending": [],
+              "skipped": [],
+              "duration": 0,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 2000
+            },
+            {
+              "uuid": "6e3c7b48-f1e5-423b-bd86-a5822cb34a02",
+              "title": "UserAuthInfo",
+              "fullFile": "/home/devue/guyi/express-rest/test/test.js",
+              "file": "/test/test.js",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [],
+              "suites": [
+                {
+                  "uuid": "68e355af-f248-4c1d-a9c6-5a7c7dbe1201",
+                  "title": "GET /api/v1/auth/",
+                  "fullFile": "/home/devue/guyi/express-rest/test/test.js",
+                  "file": "/test/test.js",
+                  "beforeHooks": [],
+                  "afterHooks": [],
+                  "tests": [
+                    {
+                      "title": "The current User was not login.",
+                      "fullTitle": "userAuthentication UserAuthInfo GET /api/v1/auth/ The current User was not login.",
+                      "timedOut": false,
+                      "duration": 2,
+                      "state": "passed",
+                      "speed": "fast",
+                      "pass": true,
+                      "fail": false,
+                      "pending": false,
+                      "context": null,
+                      "code": "request(url)\n  .get('/api/v1/auth/')\n  .set('Accept', 'application/json')\n  .expect('Content-Type', /json/)\n  .expect(401)\n  .end(function(err, res) {\n    res.body.should.containEql({\n      err: 'NOT_LOGIN'\n    });\n    if (err) throw err;\n    done();\n  });",
+                      "err": {},
+                      "uuid": "4a7f4538-0dbc-4ed6-a0d0-60659a6258d9",
+                      "parentUUID": "68e355af-f248-4c1d-a9c6-5a7c7dbe1201",
+                      "isHook": false,
+                      "skipped": false
+                    }
+                  ],
+                  "suites": [],
+                  "passes": [
+                    "4a7f4538-0dbc-4ed6-a0d0-60659a6258d9"
+                  ],
+                  "failures": [],
+                  "pending": [],
+                  "skipped": [],
+                  "duration": 2,
+                  "root": false,
+                  "rootEmpty": false,
+                  "_timeout": 2000
+                }
+              ],
+              "passes": [],
+              "failures": [],
+              "pending": [],
+              "skipped": [],
+              "duration": 0,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 2000
+            },
+            {
+              "uuid": "c8562623-f981-4bf1-82a3-7df2adb8b059",
+              "title": "UserAuthInfo",
+              "fullFile": "/home/devue/guyi/express-rest/test/test.js",
+              "file": "/test/test.js",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [],
+              "suites": [
+                {
+                  "uuid": "24a80661-4af5-47b0-802c-cca63ef5c6f6",
+                  "title": "GET /api/v1/auth/",
+                  "fullFile": "/home/devue/guyi/express-rest/test/test.js",
+                  "file": "/test/test.js",
+                  "beforeHooks": [
+                    {
+                      "title": "\"before each\" hook",
+                      "fullTitle": "userAuthentication UserAuthInfo GET /api/v1/auth/ \"before each\" hook",
+                      "timedOut": false,
+                      "duration": 558,
+                      "state": null,
+                      "speed": null,
+                      "pass": false,
+                      "fail": false,
+                      "pending": false,
+                      "context": null,
+                      "code": "request(url)\n      .post('/api/v1/auth/login')\n      .send(user)\n      .set('Accept', 'application/json')\n      .end(function(err, res) {\n        if (!err) {\n          userCookie = res.header['set-cookie'];\n          console.log(userCookie);\n          done();\n        }\n      });",
+                      "err": {},
+                      "uuid": "7141c1ce-15bc-4cdd-a02d-2013cac020e9",
+                      "parentUUID": "24a80661-4af5-47b0-802c-cca63ef5c6f6",
+                      "isHook": true,
+                      "skipped": false
+                    }
+                  ],
+                  "afterHooks": [],
+                  "tests": [
+                    {
+                      "title": "The username of the current user.",
+                      "fullTitle": "userAuthentication UserAuthInfo GET /api/v1/auth/ The username of the current user.",
+                      "timedOut": false,
+                      "duration": 2,
+                      "state": "passed",
+                      "speed": "fast",
+                      "pass": true,
+                      "fail": false,
+                      "pending": false,
+                      "context": null,
+                      "code": "request(url)\n    .get('/api/v1/auth/')\n    .set('Cookie', userCookie)\n    .expect(200)\n    .end(function(err, res) {\n      res.body.should.have.keys('username');\n      if (err) throw err;\n      done();\n    });",
+                      "err": {},
+                      "uuid": "f36c6913-aa88-49ed-8ade-7eaf09c40de8",
+                      "parentUUID": "24a80661-4af5-47b0-802c-cca63ef5c6f6",
+                      "isHook": false,
+                      "skipped": false
+                    }
+                  ],
+                  "suites": [],
+                  "passes": [
+                    "f36c6913-aa88-49ed-8ade-7eaf09c40de8"
+                  ],
+                  "failures": [],
+                  "pending": [],
+                  "skipped": [],
+                  "duration": 2,
+                  "root": false,
+                  "rootEmpty": false,
+                  "_timeout": 2000
+                }
+              ],
+              "passes": [],
+              "failures": [],
+              "pending": [],
+              "skipped": [],
+              "duration": 0,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 2000
+            }
+          ],
+          "passes": [],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 0,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "6.1.4"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": true,
+        "saveJson": true,
+        "useInlineDiffs": false
+      },
+      "version": "4.0.0"
+    },
+    "marge": {
+      "options": null,
+      "version": "4.0.0"
+    }
+  }
+}
