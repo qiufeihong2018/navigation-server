@@ -7,7 +7,7 @@ const should = require('should');
 
 var userCookie;
 
-// username/password
+// 用户名密码
 const user = {
   username: 'name',
   password: 'password'
@@ -15,17 +15,17 @@ const user = {
 
 // 测试更改密码(每次测试完调换)
 const user2 = {
-  username: 'uu2',
+  username: 'uuu2',
   password: 'oldpassword'
 };
 
 const newUser2 = {
-  username: 'uu2',
+  username: 'uuu2',
   oldpassword: 'oldpassword',
   newpassword: 'newpassword'
 };
 
-// const user22={
+// const user22 = {
 //   username: 'uu2',
 //   password: 'newpassword'
 // };
@@ -84,28 +84,28 @@ describe('userAuthentication', function() {
             done();
           });
       });
-      // it('failure.', function(done) {
-      //   request(url)
-      //     .post('/api/v1/auth/login')
-      //     .send({
-      //       username: 'admin',
-      //       password: 'admin'
-      //     })
-      //     .expect(401)
-      //     .end(function(err, res) {
-      //       res.body.should.containEql({
-      //         err: 'AUTHENTICATE_FAILURE'
-      //       });
-      //       if (err) throw err;
-      //       done();
-      //     });
-      // });
+      it('USER_NOT_EXIST.', function(done) {
+        request(url)
+          .post('/api/v1/auth/login')
+          .send({
+            username: 'a',
+            password: 'admin'
+          })
+          .expect(200)
+          .end(function(err, res) {
+            res.body.should.containEql({
+              err: 'USER_NOT_EXIST'
+            });
+            if (err) throw err;
+            done();
+          });
+      });
     });
   });
   // 权限验证
   describe('UserAuthInfo', function() {
     describe('GET /api/v1/auth/', function() {
-      // 权限验证,没登录
+      // 没有登录,权限验证
       it('The current User was not login.', function(done) {
         request(url)
           .get('/api/v1/auth/')
@@ -120,40 +120,36 @@ describe('userAuthentication', function() {
             done();
           });
       });
-    });
-  });
-  // 权限验证
-  describe('UserAuthInfo', function() {
-    describe('GET /api/v1/auth/', function() {
-      // 权限验证,先登录
+      // 权限验证前先登录
       beforeEach(function(done) {
         request(url)
-              .post('/api/v1/auth/login')
-              .send(user)
-              .set('Accept', 'application/json')
-              .end(function(err, res) {
-                if (!err) {
-                  userCookie = res.header['set-cookie'];
-                  done();
-                }
-              });
+          .post('/api/v1/auth/login')
+          .send(user)
+          .set('Accept', 'application/json')
+          .end(function(err, res) {
+            if (!err) {
+              userCookie = res.header['set-cookie'];
+              done();
+            }
+          });
       });
       it('The username of the current user.', function(done) {
         request(url)
-            .get('/api/v1/auth/')
-            .set('Cookie', userCookie)
-            .expect(200)
-            .end(function(err, res) {
-              res.body.should.have.keys('username');
-              if (err) throw err;
-              done();
-            });
+          .get('/api/v1/auth/')
+          .set('Cookie', userCookie)
+          .expect(200)
+          .end(function(err, res) {
+            res.body.should.have.keys('username');
+            if (err) throw err;
+            done();
+          });
       });
     });
   });
   // 测试用户注销接口
   describe('UserLogout', function() {
     describe('GET /logout', function() {
+      // 没有登录,测试注销
       it('NOT_LOGIN.', function(done) {
         request(url)
           .get('/api/v1/auth/logout')
@@ -280,7 +276,7 @@ describe('userAuthentication', function() {
   // 测试删除用户接口
   describe('UserDelete', function() {
     describe('DELETE /user/:username', function() {
-      it('NOT_LOGIN failure.', function(done) {
+      it('NOT_LOGIN.', function(done) {
         request(url)
           .delete(`/api/v1/auth/user/${user.username}`)
           .expect(401)
@@ -292,7 +288,7 @@ describe('userAuthentication', function() {
             done();
           });
       });
-      // 删除用户,先登录
+      // 删除用户前先登录
       beforeEach(function(done) {
         request(url)
           .post('/api/v1/auth/login')

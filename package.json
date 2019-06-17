@@ -8,7 +8,6 @@
     "lint": "eslint .",
     "fix": "eslint --fix .",
     "apidoc": "/usr/local/share/node-v10.15.3-linux-x64/bin/apidoc -i routers/",
-    "istanbul": "istanbul cover _mocha",
     "mochawesome": "./node_modules/.bin/mocha --reporter mochawesome",
     "dev": "node index.js"
   },
