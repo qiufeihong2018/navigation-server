@@ -7,13 +7,13 @@ const should = require('should');
 
 var userCookie;
 
-// 用户名密码
+// username-password
 const user = {
   username: 'name',
   password: 'password'
 };
 
-// 测试更改密码(每次测试完调换)
+// Test change password (swap after each test)
 const user2 = {
   username: 'uuu2',
   password: 'oldpassword'
@@ -36,7 +36,7 @@ const newUser2 = {
 // };
 
 describe('userAuthentication', function() {
-  // 测试注册接口
+  // Test Registration Interface
   describe('UserRegister', function() {
     describe('POST /register', function() {
       // eslint-disable-next-line max-len
@@ -68,7 +68,7 @@ describe('userAuthentication', function() {
       });
     });
   });
-  // 测试登录接口
+  // Test login Interface
   describe('UserLogin', function() {
     describe('POST /login', function() {
       it('login success', function(done) {
@@ -102,10 +102,10 @@ describe('userAuthentication', function() {
       });
     });
   });
-  // 权限验证
+  // authentication of privileges
   describe('UserAuthInfo', function() {
     describe('GET /api/v1/auth/', function() {
-      // 没有登录,权限验证
+      // no login, permission validation
       it('The current User was not login.', function(done) {
         request(url)
           .get('/api/v1/auth/')
@@ -120,7 +120,7 @@ describe('userAuthentication', function() {
             done();
           });
       });
-      // 权限验证前先登录
+      // login before authentication
       beforeEach(function(done) {
         request(url)
           .post('/api/v1/auth/login')
@@ -146,10 +146,10 @@ describe('userAuthentication', function() {
       });
     });
   });
-  // 测试用户注销接口
+  // Testing User Logout Interface
   describe('UserLogout', function() {
     describe('GET /logout', function() {
-      // 没有登录,测试注销
+      // No login, test logout
       it('NOT_LOGIN.', function(done) {
         request(url)
           .get('/api/v1/auth/logout')
@@ -162,7 +162,7 @@ describe('userAuthentication', function() {
             done();
           });
       });
-      // 注销成功前先登录
+      // Log in before successful logout
       beforeEach(function(done) {
         request(url)
           .post('/api/v1/auth/login')
@@ -190,10 +190,10 @@ describe('userAuthentication', function() {
       });
     });
   });
-  // 测试更改用户密码接口
+  // Test Change User Password Interface
   describe('UserChangePassword', function() {
     describe('POST /changepassword', function() {
-      // 更改用户密码前先注册-登录
+      // Register-login before changing user password
       // eslint-disable-next-line no-undef
       before(function(done) {
         request(url)
@@ -273,7 +273,7 @@ describe('userAuthentication', function() {
       // });
     });
   });
-  // 测试删除用户接口
+  // Test Delete User Interface
   describe('UserDelete', function() {
     describe('DELETE /user/:username', function() {
       it('NOT_LOGIN.', function(done) {
@@ -288,7 +288,7 @@ describe('userAuthentication', function() {
             done();
           });
       });
-      // 删除用户前先登录
+      // Log in before deleting users
       beforeEach(function(done) {
         request(url)
           .post('/api/v1/auth/login')
