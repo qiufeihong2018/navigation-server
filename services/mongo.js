@@ -3,7 +3,8 @@
 const mongoose = require('mongoose');
 const log = require('./logger').createLogger('mongo');
 const config = require('../config')();
-
+// [koa警告DeprecationWarning: Mongoose: `findOneAndUpdate()` and `findOneAndDelete()` without the `use...](https://www.jianshu.com/p/f3128e7ae3c5)
+mongoose.set('useFindAndModify', false);
 let reconnectTimes = 0;// Mongodb reconnect times
 let reConnectInterval = 0.1;// The interval seconecd time between two reconnection;
 const maxReconnectInterval = 120;// The max interval time between two reconnection;

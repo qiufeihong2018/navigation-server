@@ -1,13 +1,13 @@
 {
-  "name": "express-rest",
+  "name": "navigation-server",
   "version": "0.1.1",
-  "description": "express rest application quick start",
+  "description": "navigation-server",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint .",
     "fix": "eslint --fix .",
-    "apidoc": "/usr/local/share/node-v10.15.3-linux-x64/bin/apidoc -i routers/",
+    "apidoc": "apidoc -i routers/",
     "mochawesome": "./node_modules/.bin/mocha --reporter mochawesome",
     "dev": "node index.js"
   },
@@ -16,9 +16,9 @@
   ],
   "repository": {
     "type": "git",
-    "url": "http://192.168.3.2/dhb/express-rest.git"
+    "url": ""
   },
-  "author": "DHBing",
+  "author": "qiufeihong",
   "license": "MIT",
   "dependencies": {
     "body-parser": "^1.19.0",

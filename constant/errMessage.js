@@ -10,5 +10,13 @@ exports.AUTH = {
 
 exports.COMMON = {
   PARAMS_NOT_CORRECT: 'Parameters is not correct',
-  SERVER_ERROR: 'Server happened error'
+  SERVER_ERROR: 'Server happened error',
+  DATABASE_FAILUER: 'database error'
+};
+
+exports.PARAMS_ERR = {
+  CATEGORY: 'Category must be filled in',
+  NAME: 'Name must be filled in',
+  WEBSITE: 'Website must be filled in',
+  ISEXITWEBSITE: 'The website already exits'
 };

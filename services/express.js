@@ -25,7 +25,8 @@ exports.start = function() {
     }
   };
 
-  app.use(bodyParser.json()); // For parsing application/json
+  app.use(bodyParser.json());
+  // For parsing application/json
   // For parsing application/x-www-form-urlencoded
   app.use(bodyParser.urlencoded({
     extended: true
@@ -41,6 +42,9 @@ exports.start = function() {
   passport.deserializeUser(User.deserializeUser());
 
   app.use('/api/v1/auth', require('../routers/userAuthentication'));
+  app.use('/api/v1/admin', require('../routers/adminOperation'));
+  // app.use('/api/v1/superAdmin', require('../routers/superAdminOperation'));
+
 
   // start server
   app.set('port', config.expressHttpPort); // Set http port

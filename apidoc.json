@@ -1,6 +1,6 @@
-{ "name": "express-rest",
+{ "name": "navigation-server",
   "version": "0.1.0",
   "description": "express basic example",
-  "title": "express rest demo",
-  "url" : "https://localhost:5001"
+  "title": "navigation-server",
+  "url" : "https://localhost:1600"
 }
