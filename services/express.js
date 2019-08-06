@@ -43,7 +43,7 @@ exports.start = function() {
 
   app.use('/api/v1/auth', require('../routers/userAuthentication'));
   app.use('/api/v1/admin', require('../routers/adminOperation'));
-  // app.use('/api/v1/superAdmin', require('../routers/superAdminOperation'));
+  app.use('/api/v1/superAdmin', require('../routers/superAdminOperation'));
 
 
   // start server
