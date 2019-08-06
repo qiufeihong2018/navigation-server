@@ -8,6 +8,43 @@ const COMMON = require('../constant/errMessage').COMMON;
 
 const log = require('../services/logger').createLogger('adminOperation');
 
+
+/**
+ * @api {get} /superAdmin/ SuperAdmin getMap
+ * @apiName SuperAdminGet
+ * @apiGroup superAdminOperation
+ *
+ * @apiParam {null} null.
+ *
+ *
+ * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 200 OK
+ *     {
+ *    "data": [
+ *        {
+ *            "_id": "5d491b0da405a0147ab2b141",
+ *            "category": "全栈-个人博客",
+ *            "name": "qiufeihong",
+ *            "website": "www.qiufeihong.top",
+ *            "describe": "dfafasd",
+ *            "logo": "dfasd",
+ *            "created_at": "2019-08-06T06:15:41.906Z",
+ *            "updated_at": "2019-08-06T06:15:41.906Z",
+ *            "__v": 0
+ *        }
+ *    ]
+ *}
+ *
+ * @apiError NOT_LOGIN The current User was not logon.
+ *
+ * @apiErrorExample Error-Response:
+ *     HTTP/1.1 401 Unauthorized
+ *     {
+ *       "err": "NOT_LOGIN",
+ *       "message": "User has not logon in!"
+ *     }
+ */
+
 router.get('/', function(req, res) {
   SuperAdminMap.find({}).then((data) => {
     log.info('Get all data');
@@ -16,6 +53,36 @@ router.get('/', function(req, res) {
     });
   });
 });
+
+
+
+/**
+ * @api {post} /superAdmin/:id SuperAdmin postMap
+ * @apiName SuperAdminPost
+ * @apiGroup superAdminOperation
+ *
+ * @apiParam {String} category  New website's category.
+ * @apiParam {String} name  New website's name.
+ * @apiParam {String} website  New website's website.
+ * @apiParam {String} describe  New website's describe.
+ * @apiParam {String} logo  New website's logo.
+ *
+ * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 200 OK
+ *   {
+ *    "state": "ok"
+ *   }
+ *
+ * @apiError NOT_LOGIN The current User was not logon.
+ *
+ * @apiErrorExample Error-Response:
+ *     HTTP/1.1 401 Unauthorized
+ *     {
+ *       "err": "NOT_LOGIN",
+ *       "message": "User has not logon in!"
+ *     }
+ */
+
 
 router.post('/:id', function(req, res) {
   AdminMap.findByIdAndRemove({
@@ -61,6 +128,33 @@ router.post('/:id', function(req, res) {
   });
 });
 
+
+
+/**
+ * @api {delete} /superAdmin/:id SuperAdmin deleteMap
+ * @apiName SuperAdminDelete
+ * @apiGroup superAdminOperation
+ *
+ * @apiParam {String} id  New website's _id.
+ *
+ * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 200 OK
+ *{
+ *    "state": "ok",
+ *    "message": "Delete 5d493096df15984682126cff success"
+ *}
+ *
+ * @apiError NOT_LOGIN The current User was not logon.
+ *
+ * @apiErrorExample Error-Response:
+ *     HTTP/1.1 401 Unauthorized
+ *     {
+ *       "err": "NOT_LOGIN",
+ *       "message": "User has not logon in!"
+ *     }
+ */
+
+
 router.delete('/:id', function(req, res) {
   SuperAdminMap.findByIdAndRemove({
     _id: req.params.id
@@ -92,6 +186,34 @@ router.delete('/:id', function(req, res) {
     });
 });
 
+
+/**
+ * @api {put} /superAdmin/:id SuperAdmin putMap
+ * @apiName SuperAdminPut
+ * @apiGroup superAdminOperation
+ *
+ * @apiParam {String} category  New website's category.
+ * @apiParam {String} name  New website's name.
+ * @apiParam {String} website  New website's website.
+ * @apiParam {String} describe  New website's describe.
+ * @apiParam {String} logo  New website's logo.
+ *
+ * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 200 OK
+ *{
+ *    "state": "ok",
+ *    "message": "Update 5d49320bdf15984682126d00 success"
+ *}
+ *
+ * @apiError NOT_LOGIN The current User was not logon.
+ *
+ * @apiErrorExample Error-Response:
+ *     HTTP/1.1 401 Unauthorized
+ *     {
+ *       "err": "NOT_LOGIN",
+ *       "message": "User has not logon in!"
+ *     }
+ */
 
 router.put('/:id', function(req, res) {
   const newWebsite = {

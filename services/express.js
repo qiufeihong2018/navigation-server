@@ -41,6 +41,14 @@ exports.start = function() {
   passport.serializeUser(User.serializeUser());
   passport.deserializeUser(User.deserializeUser());
 
+
+  app.all('*', function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With , yourHeaderFeild');
+    res.header('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS');
+    next();
+  });
+
   app.use('/api/v1/auth', require('../routers/userAuthentication'));
   app.use('/api/v1/admin', require('../routers/adminOperation'));
   app.use('/api/v1/superAdmin', require('../routers/superAdminOperation'));
