@@ -8,7 +8,7 @@ const AUTH_ERR = require('../constant/errMessage').AUTH;
 const COMM_ERR = require('../constant/errMessage').COMMON;
 
 /**
- * @api {get} /v1/auth/ User auth information
+ * @api {get} /auth/ User auth information
  * @apiName UserAuthInfo
  * @apiGroup userAuthentication
  *
@@ -49,7 +49,7 @@ router.get('/', function(req, res) {
 });
 
 /**
- * @api {post} /v1/auth/register User Register
+ * @api {post} /auth/register User Register
  * @apiName UserRegister
  * @apiGroup userAuthentication
  *
@@ -96,7 +96,7 @@ router.post('/register', function(req, res, next) {
 });
 
 /**
- * @api {post} /v1/auth/login User login
+ * @api {post} /auth/login User login
  * @apiName UserLogin
  * @apiGroup userAuthentication
  *
@@ -140,7 +140,7 @@ router.post('/login', isAhenticated, passport.authenticate('local'), function(re
 });
 
 /**
- * @api {post} /v1/auth/user/:username User delete
+ * @api {post} /auth/user/:username User delete
  * @apiName UserDelete
  * @apiGroup userAuthentication
  *
@@ -202,7 +202,7 @@ router.delete('/user/:username', function(req, res) {
 });
 
 /**
- * @api {post} /v1/auth/changepassword User change password
+ * @api {post} /auth/changepassword User change password
  * @apiName UserChangePassword
  * @apiGroup userAuthentication
  *
@@ -269,7 +269,7 @@ router.post('/changepassword', function(req, res) {
 });
 
 /**
- * @api {get} /v1/auth/logout User login out
+ * @api {get} /auth/logout User login out
  * @apiName UserLogout
  * @apiGroup userAuthentication
  *
