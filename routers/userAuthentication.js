@@ -314,6 +314,7 @@ router.get('/logout', function(req, res) {
     return;
   }
 
+  log.error(`${user.username} logout error`);
   res.status(500).json({
     err: 'SERVER_ERROR',
     message: 'logout failure!'

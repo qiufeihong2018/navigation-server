@@ -3,6 +3,8 @@
 const express = require('express');
 const session = require('express-session');
 const bodyParser = require('body-parser');
+const fs = require('fs');
+const path = require('path');
 
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
@@ -13,6 +15,12 @@ const log = require('./logger').createLogger('express');
 const app = express();
 
 exports.start = function() {
+  app.use(express.static(path.resolve(__dirname, '../public')));
+  app.get('/#*', (req, res) => {
+    const html = fs.readFileSync(path.resolve(__dirname, '../public/index.html'), 'utf-8');
+    res.send(html);
+  });
+
   mongo.connect();
 
   // Session configuration
