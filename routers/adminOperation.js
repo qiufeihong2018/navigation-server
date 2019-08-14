@@ -232,7 +232,8 @@ router.put('/:id', function(req, res) {
     name: req.body.name,
     website: req.body.website,
     describe: req.body.describe,
-    logo: req.body.logo
+    logo: req.body.logo,
+    way: req.body.way
   };
   if (!newWebsite.category) {
     log.error(PARAMS_ERR.CATEGORY);

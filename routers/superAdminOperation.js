@@ -245,6 +245,21 @@ router.put('/:id', function(req, res) {
     });
     return;
   }
+  AdminMap.findByIdAndRemove({
+    _id: req.params.id
+  }).then((doc) => {
+    if (doc) {
+      log.info(`Delete ${req.params.id} success`);
+    } else {
+      log.error(`Delete ${req.params.id} error`);
+    }
+  }, (err) => {
+    const ERROR = new Error(err);
+    ERROR.type = COMMON.DATABASE_FAILUER;
+    throw ERROR;
+  }).catch((err) => {
+    log.error(err.message);
+  });
   SuperAdminMap.findByIdAndUpdate({
     _id: req.params.id
   }, {
