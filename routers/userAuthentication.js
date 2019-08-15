@@ -38,7 +38,8 @@ router.get('/', function(req, res) {
   if (req.user) {
     res.json({
       username: req.user.username,
-      last: req.user.last
+      last: req.user.last,
+      role: req.user.username
     });
   } else {
     res.status(401).json({
