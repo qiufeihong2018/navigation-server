@@ -9,7 +9,8 @@
     "fix": "eslint --fix .",
     "apidoc": "apidoc -i routers/",
     "mochawesome": "./node_modules/.bin/mocha --reporter mochawesome",
-    "dev": "node index.js"
+    "dev": "node index.js",
+    "pm2": "pm2 start index.js --name='navigation'"
   },
   "keywords": [
     "express"
