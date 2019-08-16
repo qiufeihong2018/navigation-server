@@ -521,7 +521,7 @@ define({ "api": [
   },
   {
     "type": "get",
-    "url": "/v1/auth/",
+    "url": "/auth/",
     "title": "User auth information",
     "name": "UserAuthInfo",
     "group": "userAuthentication",
@@ -590,7 +590,7 @@ define({ "api": [
   },
   {
     "type": "post",
-    "url": "/v1/auth/changepassword",
+    "url": "/auth/changepassword",
     "title": "User change password",
     "name": "UserChangePassword",
     "group": "userAuthentication",
@@ -673,7 +673,7 @@ define({ "api": [
   },
   {
     "type": "post",
-    "url": "/v1/auth/user/:username",
+    "url": "/auth/user/:username",
     "title": "User delete",
     "name": "UserDelete",
     "group": "userAuthentication",
@@ -742,7 +742,7 @@ define({ "api": [
   },
   {
     "type": "post",
-    "url": "/v1/auth/login",
+    "url": "/auth/login",
     "title": "User login",
     "name": "UserLogin",
     "group": "userAuthentication",
@@ -818,7 +818,7 @@ define({ "api": [
   },
   {
     "type": "get",
-    "url": "/v1/auth/logout",
+    "url": "/auth/logout",
     "title": "User login out",
     "name": "UserLogout",
     "group": "userAuthentication",
@@ -874,7 +874,7 @@ define({ "api": [
   },
   {
     "type": "post",
-    "url": "/v1/auth/register",
+    "url": "/auth/register",
     "title": "User Register",
     "name": "UserRegister",
     "group": "userAuthentication",
