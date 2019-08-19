@@ -54,8 +54,6 @@ router.get('/', function(req, res) {
   });
 });
 
-
-
 /**
  * @api {post} /superAdmin/:id SuperAdmin postMap
  * @apiName SuperAdminPost
@@ -127,8 +125,6 @@ router.post('/:id', function(req, res) {
     }
   });
 });
-
-
 
 /**
  * @api {delete} /superAdmin/:id SuperAdmin deleteMap
@@ -296,4 +292,73 @@ router.put('/:id', function(req, res) {
       });
     });
 });
+
+
+/**
+ * @api {put} /superAdmin/search/:query SuperAdmin post Search
+ * @apiName SuperAdminSearch
+ * @apiGroup superAdminOperation
+ *
+ * @apiParam {String} query  website's query.
+ *
+ * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 200 OK
+ *{
+ *    "data": [
+ *        {
+ *            "_id": "5d52605b20c8152c740204f1",
+ *            "category": "ASOOptimization",
+ *            "name": "Apptweak",
+ *            "website": "https://www.apptweak.com/",
+ *            "describe": "App Store数据优化工具",
+ *            "logo": "http://chuangzaoshi.com/assets/images/O/apptweak.png",
+ *            "created_at": "2019-08-13T07:01:47.318Z",
+ *            "updated_at": "2019-08-13T07:01:47.318Z",
+ *            "__v": 0
+ *        },
+ *        {
+ *            "_id": "5d52606320c8152c74020613",
+ *            "category": "recommendationProduct",
+ *            "name": "三顿PPT导航",
+ *            "website": "http://sandunppt.com/",
+ *            "describe": "一站式搞定PPT设计导航站点",
+ *            "logo": "http://chuangzaoshi.com/assets/images/F/sandunppt.png",
+ *            "created_at": "2019-08-13T07:01:55.892Z",
+ *            "updated_at": "2019-08-13T07:01:55.892Z",
+ *            "__v": 0
+ *        },
+ *
+ *
+ * @apiError NOT_LOGIN The current User was not logon.
+ *
+ * @apiErrorExample Error-Response:
+ *     HTTP/1.1 401 Unauthorized
+ *     {
+ *       "err": "NOT_LOGIN",
+ *       "message": "User has not logon in!"
+ *     }
+ */
+
+router.post('/search/:query', function(req, res) {
+  const query = req.params.query;
+  const reg = new RegExp(query, 'i');
+  SuperAdminMap.find({
+    $or: [{
+      name: {
+        $regex: reg
+      },
+    }, {
+      describe: {
+        $regex: reg
+      }
+    }]
+  }).exec((err, doc) => {
+    log.info(`Search ${query} success`);
+    res.status(200).json({
+      data: doc
+    });
+  });
+});
+
+
 module.exports = router;
