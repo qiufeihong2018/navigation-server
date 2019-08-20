@@ -37,8 +37,9 @@ exports.start = function() {
   // For parsing application/json
   // For parsing application/x-www-form-urlencoded
   app.use(bodyParser.urlencoded({
-    extended: true
+    extended: false
   }));
+
   app.use(session(sess)); // Set session middleware
 
   // passport config

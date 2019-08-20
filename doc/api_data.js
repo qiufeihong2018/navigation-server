@@ -521,6 +521,57 @@ define({ "api": [
   },
   {
     "type": "get",
+    "url": "/superAdmin/search/",
+    "title": "SuperAdmin getSearch",
+    "name": "SuperAdminSearch",
+    "group": "superAdminOperation",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "query",
+            "description": "<p>website's query.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "    HTTP/1.1 200 OK\n{\n   \"data\": [\n       {\n           \"_id\": \"5d52605b20c8152c740204f1\",\n           \"category\": \"ASOOptimization\",\n           \"name\": \"Apptweak\",\n           \"website\": \"https://www.apptweak.com/\",\n           \"describe\": \"App Store数据优化工具\",\n           \"logo\": \"http://chuangzaoshi.com/assets/images/O/apptweak.png\",\n           \"created_at\": \"2019-08-13T07:01:47.318Z\",\n           \"updated_at\": \"2019-08-13T07:01:47.318Z\",\n           \"__v\": 0\n       },\n       {\n           \"_id\": \"5d52606320c8152c74020613\",\n           \"category\": \"recommendationProduct\",\n           \"name\": \"三顿PPT导航\",\n           \"website\": \"http://sandunppt.com/\",\n           \"describe\": \"一站式搞定PPT设计导航站点\",\n           \"logo\": \"http://chuangzaoshi.com/assets/images/F/sandunppt.png\",\n           \"created_at\": \"2019-08-13T07:01:55.892Z\",\n           \"updated_at\": \"2019-08-13T07:01:55.892Z\",\n           \"__v\": 0\n       },",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "NOT_LOGIN",
+            "description": "<p>The current User was not logon.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 401 Unauthorized\n{\n  \"err\": \"NOT_LOGIN\",\n  \"message\": \"User has not logon in!\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "routers/superAdminOperation.js",
+    "groupTitle": "superAdminOperation"
+  },
+  {
+    "type": "get",
     "url": "/auth/",
     "title": "User auth information",
     "name": "UserAuthInfo",
