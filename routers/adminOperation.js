@@ -13,25 +13,38 @@ const log = require('../services/logger').createLogger('adminOperation');
  * @apiName AdminGet
  * @apiGroup adminOperation
  *
- * @apiParam {null} null.
+ * @apiParam {String} limit  Number of pages per page
+ * @apiParam {String} offset  Number of skips.
  *
  *
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK
- *     {
+ *{
  *    "data": [
  *        {
- *            "_id": "5d491b0da405a0147ab2b141",
- *            "category": "全栈-个人博客",
- *            "name": "qiufeihong",
- *            "website": "www.qiufeihong.top",
- *            "describe": "dfafasd",
- *            "logo": "dfasd",
- *            "created_at": "2019-08-06T06:15:41.906Z",
- *            "updated_at": "2019-08-06T06:15:41.906Z",
+ *            "_id": "5d5e4206443bdd63d0f82327",
+ *            "category": "recommendationFront-end",
+ *            "name": "test1",
+ *            "website": "test4",
+ *            "describe": "test",
+ *            "logo": "test",
+ *            "created_at": "2019-08-22T07:19:34.924Z",
+ *            "updated_at": "2019-08-22T07:19:34.924Z",
+ *            "__v": 0
+ *        },
+ *        {
+ *            "_id": "5d5e4209443bdd63d0f82328",
+ *            "category": "recommendationFront-end",
+ *            "name": "test1",
+ *            "website": "test5",
+ *            "describe": "test",
+ *            "logo": "test",
+ *            "created_at": "2019-08-22T07:19:37.430Z",
+ *            "updated_at": "2019-08-22T07:19:37.430Z",
  *            "__v": 0
  *        }
- *    ]
+ *    ],
+ *    "total": 15
  *}
  *
  * @apiError NOT_LOGIN The current User was not logon.
@@ -45,10 +58,18 @@ const log = require('../services/logger').createLogger('adminOperation');
  */
 
 router.get('/', function(req, res) {
+  const arr = req._parsedOriginalUrl.query.split('&');
+  const limit = arr[0].split('=')[1];
+  const offset = arr[1].split('=')[1];
+  let total = 0;
   AdminMap.find({}).then((data) => {
-    log.info('Get all data');
-    res.status(200).json({
-      data
+    total = data.length;
+    AdminMap.find({}).limit(Number(limit)).skip(Number(offset)).then((data) => {
+      log.info('Get all data');
+      res.status(200).json({
+        data,
+        total
+      });
     });
   });
 });

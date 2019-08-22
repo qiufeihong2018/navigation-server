@@ -61,10 +61,17 @@ define({ "api": [
         "Parameter": [
           {
             "group": "Parameter",
-            "type": "null",
+            "type": "String",
             "optional": false,
-            "field": "null.",
-            "description": ""
+            "field": "limit",
+            "description": "<p>Number of pages per page</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "offset",
+            "description": "<p>New website's offset.</p>"
           }
         ]
       }
@@ -73,7 +80,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "    HTTP/1.1 200 OK\n    {\n   \"data\": [\n       {\n           \"_id\": \"5d491b0da405a0147ab2b141\",\n           \"category\": \"全栈-个人博客\",\n           \"name\": \"qiufeihong\",\n           \"website\": \"www.qiufeihong.top\",\n           \"describe\": \"dfafasd\",\n           \"logo\": \"dfasd\",\n           \"created_at\": \"2019-08-06T06:15:41.906Z\",\n           \"updated_at\": \"2019-08-06T06:15:41.906Z\",\n           \"__v\": 0\n       }\n   ]\n}",
+          "content": "    HTTP/1.1 200 OK\n{\n   \"data\": [\n       {\n           \"_id\": \"5d5e4206443bdd63d0f82327\",\n           \"category\": \"recommendationFront-end\",\n           \"name\": \"test1\",\n           \"website\": \"test4\",\n           \"describe\": \"test\",\n           \"logo\": \"test\",\n           \"created_at\": \"2019-08-22T07:19:34.924Z\",\n           \"updated_at\": \"2019-08-22T07:19:34.924Z\",\n           \"__v\": 0\n       },\n       {\n           \"_id\": \"5d5e4209443bdd63d0f82328\",\n           \"category\": \"recommendationFront-end\",\n           \"name\": \"test1\",\n           \"website\": \"test5\",\n           \"describe\": \"test\",\n           \"logo\": \"test\",\n           \"created_at\": \"2019-08-22T07:19:37.430Z\",\n           \"updated_at\": \"2019-08-22T07:19:37.430Z\",\n           \"__v\": 0\n       }\n   ],\n   \"total\": 15\n}",
           "type": "json"
         }
       ]
@@ -321,10 +328,24 @@ define({ "api": [
         "Parameter": [
           {
             "group": "Parameter",
-            "type": "null",
+            "type": "String",
             "optional": false,
-            "field": "null.",
-            "description": ""
+            "field": "limit",
+            "description": "<p>Number of pages per page.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "offset",
+            "description": "<p>Number of skips.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "category",
+            "description": "<p>New website's category.</p>"
           }
         ]
       }
@@ -333,7 +354,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "    HTTP/1.1 200 OK\n    {\n   \"data\": [\n       {\n           \"_id\": \"5d491b0da405a0147ab2b141\",\n           \"category\": \"全栈-个人博客\",\n           \"name\": \"qiufeihong\",\n           \"website\": \"www.qiufeihong.top\",\n           \"describe\": \"dfafasd\",\n           \"logo\": \"dfasd\",\n           \"created_at\": \"2019-08-06T06:15:41.906Z\",\n           \"updated_at\": \"2019-08-06T06:15:41.906Z\",\n           \"__v\": 0\n       }\n   ]\n}",
+          "content": "    HTTP/1.1 200 OK\n{\n   \"data\": [\n       {\n           \"_id\": \"5d5e4206443bdd63d0f82327\",\n           \"category\": \"recommendationFront-end\",\n           \"name\": \"test1\",\n           \"website\": \"test4\",\n           \"describe\": \"test\",\n           \"logo\": \"test\",\n           \"created_at\": \"2019-08-22T07:19:34.924Z\",\n           \"updated_at\": \"2019-08-22T07:19:34.924Z\",\n           \"__v\": 0\n       },\n       {\n           \"_id\": \"5d5e4209443bdd63d0f82328\",\n           \"category\": \"recommendationFront-end\",\n           \"name\": \"test1\",\n           \"website\": \"test5\",\n           \"describe\": \"test\",\n           \"logo\": \"test\",\n           \"created_at\": \"2019-08-22T07:19:37.430Z\",\n           \"updated_at\": \"2019-08-22T07:19:37.430Z\",\n           \"__v\": 0\n       }\n   ],\n   \"total\": 655\n}",
           "type": "json"
         }
       ]
@@ -532,8 +553,22 @@ define({ "api": [
             "group": "Parameter",
             "type": "String",
             "optional": false,
+            "field": "limit",
+            "description": "<p>Number of pages per page.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "offset",
+            "description": "<p>Number of skips.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
             "field": "query",
-            "description": "<p>website's query.</p>"
+            "description": "<p>Query website keywords.</p>"
           }
         ]
       }
@@ -542,7 +577,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "    HTTP/1.1 200 OK\n{\n   \"data\": [\n       {\n           \"_id\": \"5d52605b20c8152c740204f1\",\n           \"category\": \"ASOOptimization\",\n           \"name\": \"Apptweak\",\n           \"website\": \"https://www.apptweak.com/\",\n           \"describe\": \"App Store数据优化工具\",\n           \"logo\": \"http://chuangzaoshi.com/assets/images/O/apptweak.png\",\n           \"created_at\": \"2019-08-13T07:01:47.318Z\",\n           \"updated_at\": \"2019-08-13T07:01:47.318Z\",\n           \"__v\": 0\n       },\n       {\n           \"_id\": \"5d52606320c8152c74020613\",\n           \"category\": \"recommendationProduct\",\n           \"name\": \"三顿PPT导航\",\n           \"website\": \"http://sandunppt.com/\",\n           \"describe\": \"一站式搞定PPT设计导航站点\",\n           \"logo\": \"http://chuangzaoshi.com/assets/images/F/sandunppt.png\",\n           \"created_at\": \"2019-08-13T07:01:55.892Z\",\n           \"updated_at\": \"2019-08-13T07:01:55.892Z\",\n           \"__v\": 0\n       },",
+          "content": "    HTTP/1.1 200 OK\n{\n   \"data\": [\n       {\n           \"_id\": \"5d5e4206443bdd63d0f82327\",\n           \"category\": \"recommendationFront-end\",\n           \"name\": \"test1\",\n           \"website\": \"test4\",\n           \"describe\": \"test\",\n           \"logo\": \"test\",\n           \"created_at\": \"2019-08-22T07:19:34.924Z\",\n           \"updated_at\": \"2019-08-22T07:19:34.924Z\",\n           \"__v\": 0\n       },\n       {\n           \"_id\": \"5d5e4209443bdd63d0f82328\",\n           \"category\": \"recommendationFront-end\",\n           \"name\": \"test1\",\n           \"website\": \"test5\",\n           \"describe\": \"test\",\n           \"logo\": \"test\",\n           \"created_at\": \"2019-08-22T07:19:37.430Z\",\n           \"updated_at\": \"2019-08-22T07:19:37.430Z\",\n           \"__v\": 0\n       }\n   ],\n   \"total\": 32\n}",
           "type": "json"
         }
       ]

@@ -15,7 +15,7 @@ function reptile(url, type) {
   request(url, function(error, res, body) {
     // console.error('error:', error); // Print the error if one occurred
     // eslint-disable-next-line max-len
-    // console.log('statusCode:', response && response.statusCode); 
+    // console.log('statusCode:', response && response.statusCode);
     // Print the response status code if a response was received
     // console.log('body:', body); // Print the HTML for the Google homepage.
     if (!error && res.statusCode == 200) {

@@ -14,27 +14,40 @@ const log = require('../services/logger').createLogger('adminOperation');
  * @apiName SuperAdminGet
  * @apiGroup superAdminOperation
  *
- * @apiParam {null} null.
+ * @apiParam {String} limit  Number of pages per page.
+ * @apiParam {String} offset  Number of skips.
+ * @apiParam {String} category  New website's category.
  *
  *
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK
- *     {
+ *{
  *    "data": [
  *        {
- *            "_id": "5d491b0da405a0147ab2b141",
- *            "category": "全栈-个人博客",
- *            "name": "qiufeihong",
- *            "website": "www.qiufeihong.top",
- *            "describe": "dfafasd",
- *            "logo": "dfasd",
- *            "created_at": "2019-08-06T06:15:41.906Z",
- *            "updated_at": "2019-08-06T06:15:41.906Z",
+ *            "_id": "5d5e4206443bdd63d0f82327",
+ *            "category": "recommendationFront-end",
+ *            "name": "test1",
+ *            "website": "test4",
+ *            "describe": "test",
+ *            "logo": "test",
+ *            "created_at": "2019-08-22T07:19:34.924Z",
+ *            "updated_at": "2019-08-22T07:19:34.924Z",
+ *            "__v": 0
+ *        },
+ *        {
+ *            "_id": "5d5e4209443bdd63d0f82328",
+ *            "category": "recommendationFront-end",
+ *            "name": "test1",
+ *            "website": "test5",
+ *            "describe": "test",
+ *            "logo": "test",
+ *            "created_at": "2019-08-22T07:19:37.430Z",
+ *            "updated_at": "2019-08-22T07:19:37.430Z",
  *            "__v": 0
  *        }
- *    ]
+ *    ],
+ *    "total": 655
  *}
- *
  * @apiError NOT_LOGIN The current User was not logon.
  *
  * @apiErrorExample Error-Response:
@@ -49,11 +62,15 @@ router.get('/', function(req, res) {
   const arr = req._parsedOriginalUrl.query.split('&');
   const limit = arr[0].split('=')[1];
   const offset = arr[1].split('=')[1];
+  const cate = arr[2].split('=')[1];
   let total = 0;
-  SuperAdminMap.find({}).then((data) => {
+  SuperAdminMap.find({ category: cate }).then((data) => {
     total = data.length;
-    SuperAdminMap.find({}).limit(Number(limit)).skip(Number(offset)).then((data) => {
-      log.info('Get all data');
+    SuperAdminMap.find({ category: cate })
+    .limit(Number(limit))
+    .skip(Number(offset))
+    .then((data) => {
+      log.info(`Get ${cate} data`);
       res.status(200).json({
         data,
         total
@@ -161,26 +178,26 @@ router.post('/:id', function(req, res) {
 
 router.delete('/:id', function(req, res) {
   SuperAdminMap.findByIdAndRemove({
-      _id: req.params.id
-    }).then((doc) => {
-      if (doc) {
-        log.info(`Delete ${req.params.id} success`);
-        res.status(200).json({
-          state: 'ok',
-          message: `Delete ${req.params.id} success`
-        });
-      } else {
-        log.error(`Delete ${req.params.id} error`);
-        res.status(200).json({
-          state: 'err',
-          message: `Delete ${req.params.id} error`
-        });
-      }
-    }, (err) => {
-      const ERROR = new Error(err);
-      ERROR.type = COMMON.DATABASE_FAILUER;
-      throw ERROR;
-    })
+    _id: req.params.id
+  }).then((doc) => {
+    if (doc) {
+      log.info(`Delete ${req.params.id} success`);
+      res.status(200).json({
+        state: 'ok',
+        message: `Delete ${req.params.id} success`
+      });
+    } else {
+      log.error(`Delete ${req.params.id} error`);
+      res.status(200).json({
+        state: 'err',
+        message: `Delete ${req.params.id} error`
+      });
+    }
+  }, (err) => {
+    const ERROR = new Error(err);
+    ERROR.type = COMMON.DATABASE_FAILUER;
+    throw ERROR;
+  })
     .catch((err) => {
       log.error(err.message);
       res.status(500).json({
@@ -265,33 +282,33 @@ router.put('/:id', function(req, res) {
     log.error(err.message);
   });
   SuperAdminMap.findByIdAndUpdate({
-      _id: req.params.id
-    }, {
-      $set: newWebsite
-    }, {
-      new: true,
-      upsert: true,
-      setDefaultsOnInsert: true,
-      setOnInsert: true
-    }).then((doc) => {
-      if (doc) {
-        log.info(`Update ${req.params.id} success`);
-        res.status(200).json({
-          state: 'ok',
-          message: `Update ${req.params.id} success`
-        });
-      } else {
-        log.error(`Update ${req.params.id} error`);
-        res.status(200).json({
-          state: 'err',
-          message: `Update ${req.params.id} error`
-        });
-      }
-    }, (err) => {
-      const ERROR = new Error(err);
-      ERROR.type = COMMON.DATABASE_FAILUER;
-      throw ERROR;
-    })
+    _id: req.params.id
+  }, {
+    $set: newWebsite
+  }, {
+    new: true,
+    upsert: true,
+    setDefaultsOnInsert: true,
+    setOnInsert: true
+  }).then((doc) => {
+    if (doc) {
+      log.info(`Update ${req.params.id} success`);
+      res.status(200).json({
+        state: 'ok',
+        message: `Update ${req.params.id} success`
+      });
+    } else {
+      log.error(`Update ${req.params.id} error`);
+      res.status(200).json({
+        state: 'err',
+        message: `Update ${req.params.id} error`
+      });
+    }
+  }, (err) => {
+    const ERROR = new Error(err);
+    ERROR.type = COMMON.DATABASE_FAILUER;
+    throw ERROR;
+  })
     .catch((err) => {
       log.error(err.message);
       res.status(500).json({
@@ -307,36 +324,40 @@ router.put('/:id', function(req, res) {
  * @apiName SuperAdminSearch
  * @apiGroup superAdminOperation
  *
- * @apiParam {String} query  website's query.
+ * @apiParam {String} limit  Number of pages per page.
+ * @apiParam {String} offset  Number of skips.
+ * @apiParam {String} query  Query website keywords.
+ *
  *
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK
  *{
  *    "data": [
  *        {
- *            "_id": "5d52605b20c8152c740204f1",
- *            "category": "ASOOptimization",
- *            "name": "Apptweak",
- *            "website": "https://www.apptweak.com/",
- *            "describe": "App Store数据优化工具",
- *            "logo": "http://chuangzaoshi.com/assets/images/O/apptweak.png",
- *            "created_at": "2019-08-13T07:01:47.318Z",
- *            "updated_at": "2019-08-13T07:01:47.318Z",
+ *            "_id": "5d5e4206443bdd63d0f82327",
+ *            "category": "recommendationFront-end",
+ *            "name": "test1",
+ *            "website": "test4",
+ *            "describe": "test",
+ *            "logo": "test",
+ *            "created_at": "2019-08-22T07:19:34.924Z",
+ *            "updated_at": "2019-08-22T07:19:34.924Z",
  *            "__v": 0
  *        },
  *        {
- *            "_id": "5d52606320c8152c74020613",
- *            "category": "recommendationProduct",
- *            "name": "三顿PPT导航",
- *            "website": "http://sandunppt.com/",
- *            "describe": "一站式搞定PPT设计导航站点",
- *            "logo": "http://chuangzaoshi.com/assets/images/F/sandunppt.png",
- *            "created_at": "2019-08-13T07:01:55.892Z",
- *            "updated_at": "2019-08-13T07:01:55.892Z",
+ *            "_id": "5d5e4209443bdd63d0f82328",
+ *            "category": "recommendationFront-end",
+ *            "name": "test1",
+ *            "website": "test5",
+ *            "describe": "test",
+ *            "logo": "test",
+ *            "created_at": "2019-08-22T07:19:37.430Z",
+ *            "updated_at": "2019-08-22T07:19:37.430Z",
  *            "__v": 0
- *        },
- *
- *
+ *        }
+ *    ],
+ *    "total": 32
+ *}
  * @apiError NOT_LOGIN The current User was not logon.
  *
  * @apiErrorExample Error-Response:
