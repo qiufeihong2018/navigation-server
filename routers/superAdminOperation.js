@@ -46,10 +46,18 @@ const log = require('../services/logger').createLogger('adminOperation');
  */
 
 router.get('/', function(req, res) {
+  const arr = req._parsedOriginalUrl.query.split('&');
+  const limit = arr[0].split('=')[1];
+  const offset = arr[1].split('=')[1];
+  let total = 0;
   SuperAdminMap.find({}).then((data) => {
-    log.info('Get all data');
-    res.status(200).json({
-      data
+    total = data.length;
+    SuperAdminMap.find({}).limit(Number(limit)).skip(Number(offset)).then((data) => {
+      log.info('Get all data');
+      res.status(200).json({
+        data,
+        total
+      });
     });
   });
 });
@@ -153,26 +161,26 @@ router.post('/:id', function(req, res) {
 
 router.delete('/:id', function(req, res) {
   SuperAdminMap.findByIdAndRemove({
-    _id: req.params.id
-  }).then((doc) => {
-    if (doc) {
-      log.info(`Delete ${req.params.id} success`);
-      res.status(200).json({
-        state: 'ok',
-        message: `Delete ${req.params.id} success`
-      });
-    } else {
-      log.error(`Delete ${req.params.id} error`);
-      res.status(200).json({
-        state: 'err',
-        message: `Delete ${req.params.id} error`
-      });
-    }
-  }, (err) => {
-    const ERROR = new Error(err);
-    ERROR.type = COMMON.DATABASE_FAILUER;
-    throw ERROR;
-  })
+      _id: req.params.id
+    }).then((doc) => {
+      if (doc) {
+        log.info(`Delete ${req.params.id} success`);
+        res.status(200).json({
+          state: 'ok',
+          message: `Delete ${req.params.id} success`
+        });
+      } else {
+        log.error(`Delete ${req.params.id} error`);
+        res.status(200).json({
+          state: 'err',
+          message: `Delete ${req.params.id} error`
+        });
+      }
+    }, (err) => {
+      const ERROR = new Error(err);
+      ERROR.type = COMMON.DATABASE_FAILUER;
+      throw ERROR;
+    })
     .catch((err) => {
       log.error(err.message);
       res.status(500).json({
@@ -257,33 +265,33 @@ router.put('/:id', function(req, res) {
     log.error(err.message);
   });
   SuperAdminMap.findByIdAndUpdate({
-    _id: req.params.id
-  }, {
-    $set: newWebsite
-  }, {
-    new: true,
-    upsert: true,
-    setDefaultsOnInsert: true,
-    setOnInsert: true
-  }).then((doc) => {
-    if (doc) {
-      log.info(`Update ${req.params.id} success`);
-      res.status(200).json({
-        state: 'ok',
-        message: `Update ${req.params.id} success`
-      });
-    } else {
-      log.error(`Update ${req.params.id} error`);
-      res.status(200).json({
-        state: 'err',
-        message: `Update ${req.params.id} error`
-      });
-    }
-  }, (err) => {
-    const ERROR = new Error(err);
-    ERROR.type = COMMON.DATABASE_FAILUER;
-    throw ERROR;
-  })
+      _id: req.params.id
+    }, {
+      $set: newWebsite
+    }, {
+      new: true,
+      upsert: true,
+      setDefaultsOnInsert: true,
+      setOnInsert: true
+    }).then((doc) => {
+      if (doc) {
+        log.info(`Update ${req.params.id} success`);
+        res.status(200).json({
+          state: 'ok',
+          message: `Update ${req.params.id} success`
+        });
+      } else {
+        log.error(`Update ${req.params.id} error`);
+        res.status(200).json({
+          state: 'err',
+          message: `Update ${req.params.id} error`
+        });
+      }
+    }, (err) => {
+      const ERROR = new Error(err);
+      ERROR.type = COMMON.DATABASE_FAILUER;
+      throw ERROR;
+    })
     .catch((err) => {
       log.error(err.message);
       res.status(500).json({
@@ -340,8 +348,12 @@ router.put('/:id', function(req, res) {
  */
 
 
-router.get('/search/:query', function(req, res) {
-  const query = req.params.query;
+router.get('/search/', function(req, res) {
+  const arr = req._parsedOriginalUrl.query.split('&');
+  const query = arr[0].split('=')[1];
+  const limit = arr[1].split('=')[1];
+  const offset = arr[2].split('=')[1];
+  let total = 0;
   const reg = new RegExp(query, 'i');
   if (query === '') {
     SuperAdminMap.find({}).exec((err, doc) => {
@@ -373,12 +385,34 @@ router.get('/search/:query', function(req, res) {
       }
     }]
   }).exec((err, doc) => {
-    if (err) {
-      log.error(`Search ${query} error`);
-    }
-    log.info(`Search ${query} success`);
-    res.status(200).json({
-      data: doc
+    total = doc.length;
+    SuperAdminMap.find({
+      $or: [{
+        name: {
+          $regex: reg
+        },
+      }, {
+        describe: {
+          $regex: reg
+        }
+      }, {
+        logo: {
+          $regex: reg
+        }
+      }, {
+        website: {
+          $regex: reg
+        }
+      }]
+    }).limit(Number(limit)).skip(Number(offset)).exec((err, doc) => {
+      if (err) {
+        log.error(`Search ${query} error`);
+      }
+      log.info(`Search ${query} success`);
+      res.status(200).json({
+        total: total,
+        data: doc
+      });
     });
   });
 });
