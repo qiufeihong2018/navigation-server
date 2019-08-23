@@ -71,7 +71,14 @@
             "type": "String",
             "optional": false,
             "field": "offset",
-            "description": "<p>New website's offset.</p>"
+            "description": "<p>Number of skips.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "tag",
+            "description": "<p>add || put.</p>"
           }
         ]
       }
@@ -80,7 +87,7 @@
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "    HTTP/1.1 200 OK\n{\n   \"data\": [\n       {\n           \"_id\": \"5d5e4206443bdd63d0f82327\",\n           \"category\": \"recommendationFront-end\",\n           \"name\": \"test1\",\n           \"website\": \"test4\",\n           \"describe\": \"test\",\n           \"logo\": \"test\",\n           \"created_at\": \"2019-08-22T07:19:34.924Z\",\n           \"updated_at\": \"2019-08-22T07:19:34.924Z\",\n           \"__v\": 0\n       },\n       {\n           \"_id\": \"5d5e4209443bdd63d0f82328\",\n           \"category\": \"recommendationFront-end\",\n           \"name\": \"test1\",\n           \"website\": \"test5\",\n           \"describe\": \"test\",\n           \"logo\": \"test\",\n           \"created_at\": \"2019-08-22T07:19:37.430Z\",\n           \"updated_at\": \"2019-08-22T07:19:37.430Z\",\n           \"__v\": 0\n       }\n   ],\n   \"total\": 15\n}",
+          "content": "    HTTP/1.1 200 OK\n{\n   \"data\": [\n       {\n           \"_id\": \"5d5e4206443bdd63d0f82327\",\n           \"category\": \"recommendationFront-end\",\n           \"name\": \"test1\",\n           \"website\": \"test4\",\n           \"describe\": \"test\",\n           \"logo\": \"test\",\n           \"way\": \"add\",\n           \"created_at\": \"2019-08-22T07:19:34.924Z\",\n           \"updated_at\": \"2019-08-22T07:19:34.924Z\",\n           \"__v\": 0\n       },\n       {\n           \"_id\": \"5d5e4209443bdd63d0f82328\",\n           \"category\": \"recommendationFront-end\",\n           \"name\": \"test1\",\n           \"website\": \"test5\",\n           \"describe\": \"test\",\n           \"logo\": \"test\",\n           \"way\": \"add\",\n           \"created_at\": \"2019-08-22T07:19:37.430Z\",\n           \"updated_at\": \"2019-08-22T07:19:37.430Z\",\n           \"__v\": 0\n       }\n   ],\n   \"total\": 15\n}",
           "type": "json"
         }
       ]

@@ -15,6 +15,8 @@ const log = require('../services/logger').createLogger('adminOperation');
  *
  * @apiParam {String} limit  Number of pages per page
  * @apiParam {String} offset  Number of skips.
+ * @apiParam {String} tag  add || put.
+ *
  *
  *
  * @apiSuccessExample Success-Response:
@@ -28,6 +30,7 @@ const log = require('../services/logger').createLogger('adminOperation');
  *            "website": "test4",
  *            "describe": "test",
  *            "logo": "test",
+ *            "way": "add",
  *            "created_at": "2019-08-22T07:19:34.924Z",
  *            "updated_at": "2019-08-22T07:19:34.924Z",
  *            "__v": 0
@@ -39,6 +42,7 @@ const log = require('../services/logger').createLogger('adminOperation');
  *            "website": "test5",
  *            "describe": "test",
  *            "logo": "test",
+ *            "way": "add",
  *            "created_at": "2019-08-22T07:19:37.430Z",
  *            "updated_at": "2019-08-22T07:19:37.430Z",
  *            "__v": 0
@@ -61,11 +65,17 @@ router.get('/', function(req, res) {
   const arr = req._parsedOriginalUrl.query.split('&');
   const limit = arr[0].split('=')[1];
   const offset = arr[1].split('=')[1];
+  const tag = arr[2].split('=')[1];
   let total = 0;
-  AdminMap.find({}).then((data) => {
+
+  AdminMap.find({
+    way: tag
+  }).then((data) => {
     total = data.length;
-    AdminMap.find({}).limit(Number(limit)).skip(Number(offset)).then((data) => {
-      log.info('Get all data');
+    AdminMap.find({
+      way: tag
+    }).limit(Number(limit)).skip(Number(offset)).then((data) => {
+      log.info(`Get ${tag} data`);
       res.status(200).json({
         data,
         total
@@ -109,7 +119,8 @@ router.post('/', function(req, res) {
     name: req.body.name,
     website: req.body.website,
     describe: req.body.describe,
-    logo: req.body.logo
+    logo: req.body.logo,
+    way: req.body.way
   };
   if (!newWebsite.category) {
     log.error(PARAMS_ERR.CATEGORY);
