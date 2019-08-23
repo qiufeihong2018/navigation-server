@@ -22,7 +22,11 @@
 ## 安装
 
 ```sh
+https://github.com/qiufeihong2018/navigation-server.git
+
 npm install 
+
+node creeper/index.js 
 
 npm run dev
 ```
