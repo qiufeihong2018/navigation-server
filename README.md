@@ -43,13 +43,17 @@ npm run test
 
 Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/qiufeihong2018/navigation-server/issues).
 
+## Operational Guidelines
+
+[Operational Guidelines Video](http://images.qiufeihong.top/navigation.webm)
+
 ## Website screenshot
 
-![Site navigation block waterfall flow](http://puz03r2zg.bkt.clouddn.com/web.png)
+![Site navigation block waterfall flow](http://images.qiufeihong.top/web.png)
 
-![Website nested iframe](http://puz03r2zg.bkt.clouddn.com/web2.png)
+![Website nested iframe](http://images.qiufeihong.top/web2.png)
 
-![Website submission](http://puz03r2zg.bkt.clouddn.com/web3.png)
+![Website submission](http://images.qiufeihong.top/web3.png)
 
 ## Online Demo
 
@@ -68,5 +72,5 @@ Give a ⭐️ if this project helped you!
 
 If you find this project useful, you can buy author a glass of juice :tropical_drink:
 
-![donate](http://puz03r2zg.bkt.clouddn.com/pay.png)
+![donate](http://images.qiufeihong.top/pay.png)
 

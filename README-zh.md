@@ -37,19 +37,22 @@ npm run dev
 
 欢迎提供贡献，问题和功能请求！<br />请随时查看 [issues page](https://github.com/qiufeihong2018/navigation-server/issues).
 
+## 操作指南
+
+[操作指南](http://images.qiufeihong.top/navigation.webm)
+
 ## 网站截图
 
+![网站导航块瀑布流](http://images.qiufeihong.top/web.png)
 
-![网站导航块瀑布流](http://puz03r2zg.bkt.clouddn.com/web.png)
+![网站嵌套iframe](http://images.qiufeihong.top/web2.png)
 
-![网站嵌套iframe](http://puz03r2zg.bkt.clouddn.com/web2.png)
-
-![网站提交](http://puz03r2zg.bkt.clouddn.com/web3.png)
-
+![网站提交](http://images.qiufeihong.top/web3.png)
 
 ## 在线Demo
 
 [预览](http://navigation.qiufeihong.top)
+
 
 ## Apidoc
 
@@ -63,5 +66,6 @@ npm run dev
 ## 捐赠
 
 如果你发现这个项目很有用，你可以给作者买一杯果汁 :tropical_drink:
-![donate](http://puz03r2zg.bkt.clouddn.com/pay.png)
+
+![donate](http://images.qiufeihong.top/pay.png)
 
