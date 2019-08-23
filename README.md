@@ -22,7 +22,7 @@ English | [简体中文](./README-zh.md)
 ## Install
 
 ```sh
-https://github.com/qiufeihong2018/navigation-server.git
+git clone https://github.com/qiufeihong2018/navigation-server.git
 
 npm install 
 
