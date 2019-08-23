@@ -371,7 +371,8 @@ router.put('/:id', function(req, res) {
 
 router.get('/search/', function(req, res) {
   const arr = req._parsedOriginalUrl.query.split('&');
-  const query = arr[0].split('=')[1];
+  // decode
+  const query = decodeURI(arr[0].split('=')[1]);
   const limit = arr[1].split('=')[1];
   const offset = arr[2].split('=')[1];
   let total = 0;
