@@ -22,7 +22,7 @@
 ## 安装
 
 ```sh
-https://github.com/qiufeihong2018/navigation-server.git
+git clone https://github.com/qiufeihong2018/navigation-server.git
 
 npm install 
 
