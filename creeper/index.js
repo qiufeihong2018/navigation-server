@@ -1,23 +1,13 @@
-/* eslint-disable eqeqeq */
 'use strict';
 const request = require('request');
 const cheerio = require('cheerio');
 const mongoose = require('mongoose');
 var db = mongoose.connect('mongodb://localhost/map');
-// 引入数据模型模块
 const superAdminMap = require('../collections/superAdminMap.js');
 
 
-/**
- * 请求函数
- */
 function reptile(url, type) {
   request(url, function(error, res, body) {
-    // console.error('error:', error); // Print the error if one occurred
-    // eslint-disable-next-line max-len
-    // console.log('statusCode:', response && response.statusCode);
-    // Print the response status code if a response was received
-    // console.log('body:', body); // Print the HTML for the Google homepage.
     if (!error && res.statusCode == 200) {
       const $ = cheerio.load(body);
       const panelBlock = $('.panel');
@@ -84,7 +74,6 @@ function reptile(url, type) {
           arr.push(obj);
         }
       }
-      // 存入数据库
       superAdminMap.create(arr, function(err, doc) {
         console.log(err);
       });

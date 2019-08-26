@@ -47,9 +47,15 @@ npm run test
 
 Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/qiufeihong2018/navigation-server/issues).
 
-## Operational Guidelines
 
-[Operational Guidelines Video](http://images.qiufeihong.top/navigation.webm)
+## Implementing Functions
+
+[Website CRUD](http://images.qiufeihong.top/nAdd.webm)
+
+[Log in and log out](http://images.qiufeihong.top/nLogin.webm)
+
+[search](http://images.qiufeihong.top/nSearch.webm)
+
 
 ## Website screenshot
 
