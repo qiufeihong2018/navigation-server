@@ -33,12 +33,13 @@ exports.start = function() {
     }
   };
 
-  app.use(bodyParser.json());
-  // For parsing application/json
-  // For parsing application/x-www-form-urlencoded
+  // parse application/x-www-form-urlencoded
   app.use(bodyParser.urlencoded({
     extended: false
   }));
+
+  // parse application/json
+  app.use(bodyParser.json());
 
   app.use(session(sess)); // Set session middleware
 
@@ -64,7 +65,8 @@ exports.start = function() {
 
 
   // start server
-  app.set('port', config.expressHttpPort); // Set http port
+  // Set http port
+  app.set('port', config.expressHttpPort);
 
   app.listen(config.expressHttpPort, () => {
     // 开启端口打印日志

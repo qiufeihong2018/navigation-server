@@ -4,23 +4,16 @@ var config = {
   development: {
     // mongodb
     database: 'mongodb://localhost/map',
-    // elasticsearch
-    elasticsearch: 'http://localhost:9200',
     expressHttpPort: 1600,
-
   },
   local: {
     // mongodb
     database: 'mongodb://127.0.0.1/map',
-    // elastic
-    elasticsearch: 'localhost:9211',
     expressHttpPort: 1600
   },
   production: {
     // mongodb
     database: 'mongodb://127.0.0.1/map',
-    // elasticsearch
-    elasticsearch: 'localhost:9211',
     expressHttpPort: 1600
   }
 };
