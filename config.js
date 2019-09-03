@@ -5,16 +5,19 @@ var config = {
     // mongodb
     database: 'mongodb://localhost/map',
     expressHttpPort: 1600,
+    logFile: './log/express.log'
   },
   local: {
     // mongodb
     database: 'mongodb://127.0.0.1/map',
-    expressHttpPort: 1600
+    expressHttpPort: 1600,
+    logFile: './log/express.log'
   },
   production: {
     // mongodb
     database: 'mongodb://127.0.0.1/map',
-    expressHttpPort: 1600
+    expressHttpPort: 1600,
+    logFile: './log/express.log'
   }
 };
 

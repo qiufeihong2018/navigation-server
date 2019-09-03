@@ -33,13 +33,11 @@
     "winston-daily-rotate-file": "^3.9.0"
   },
   "devDependencies": {
-    "assert": "^2.0.0",
     "cheerio": "^1.0.0-rc.3",
     "commitizen": "^3.1.1",
     "cz-conventional-changelog": "^2.1.0",
     "db": "^1.1.1",
     "eslint": "^5.16.0",
-    "istanbul": "^0.4.5",
     "mocha": "^6.1.4",
     "mochawesome": "^4.0.0",
     "request": "^2.88.0",
