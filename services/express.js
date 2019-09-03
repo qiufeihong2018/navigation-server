@@ -42,11 +42,13 @@ exports.start = function() {
 
   app.use(session(sess)); // Set session middleware
 
-  // passport config
+  // requires the model with Passport-Local Mongoose plugged in
   var User = require('../collections/user');
   app.use(passport.initialize());
   app.use(passport.session());
+  // use static authenticate method of model in LocalStrategy
   passport.use(new LocalStrategy(User.authenticate()));
+  // use static serialize and deserialize of model for passport session support
   passport.serializeUser(User.serializeUser());
   passport.deserializeUser(User.deserializeUser());
 
