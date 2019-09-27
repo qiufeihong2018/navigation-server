@@ -53,9 +53,11 @@ exports.start = function() {
 
 
   app.all('*', function(req, res, next) {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', 'Content-Type');
-    res.header('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS');
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type,Authorization');
+    res.setHeader('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS');
+    res.setHeader('X-Frame-Options', 'SAMEORIGIN');
+    // res.setHeader('Content-Security-Policy', "frame-ancestors 'self' http://192.168.1.123:1600");
     next();
   });
 
