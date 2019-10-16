@@ -6,7 +6,7 @@ const config = require('../config')();
 // [koa警告DeprecationWarning: Mongoose: `findOneAndUpdate()` and `findOneAndDelete()` without the `use...](https://www.jianshu.com/p/f3128e7ae3c5)
 mongoose.set('useFindAndModify', false);
 let reconnectTimes = 0;// Mongodb reconnect times
-let reConnectInterval = 0.1;// The interval seconecd time between two reconnection;
+let reconnectInterval = 0.1;// The interval seconecd time between two reconnection;
 const maxReconnectInterval = 120;// The max interval time between two reconnection;
 
 // Connect to mongodb
@@ -28,18 +28,18 @@ mongoose.connection.on('error', function(err) {
 // Mongoose reconnect when closed
 mongoose.connection.on('disconnected', function() {
   reconnectTimes++;
-  reConnectInterval = reConnectInterval * 2;
-  if (reConnectInterval > maxReconnectInterval) reConnectInterval = maxReconnectInterval;
+  reconnectInterval = reconnectInterval * 2;
+  if (reconnectInterval > maxReconnectInterval) reconnectInterval = maxReconnectInterval;
   log.warn(`mongodb will the ${reconnectTimes} times try reconnecting, ` +
-           `after ${reConnectInterval} seconds ...`);
+           `after ${reconnectInterval} seconds ...`);
   setTimeout(() => {
     connect();
-  }, reConnectInterval * 1000);
+  }, reconnectInterval * 1000);
 });
 
 mongoose.connection.on('connected', function() {
   reconnectTimes = 0;
-  reConnectInterval = 0.1;
+  reconnectInterval = 0.1;
   log.info('mongodb connected successfull');
 });
 

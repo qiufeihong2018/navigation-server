@@ -14,6 +14,8 @@
 
 ## [前端项目](https://github.com/qiufeihong2018/navigation-web)
 
+## [Navigation网站收藏和导航平台](https://www.qiufeihong.top/technical-summary/navigation/)
+
 ## 先决条件
 
 - node >=8.9

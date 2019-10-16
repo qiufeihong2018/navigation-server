@@ -2,13 +2,13 @@
 const request = require('request');
 const cheerio = require('cheerio');
 const mongoose = require('mongoose');
-var db = mongoose.connect('mongodb://localhost/map');
+const db = mongoose.connect('mongodb://localhost/map');
 const superAdminMap = require('../collections/superAdminMap.js');
 
 
 function reptile(url, type) {
   request(url, function(error, res, body) {
-    if (!error && res.statusCode == 200) {
+    if (!error && res.statusCode === 200) {
       const $ = cheerio.load(body);
       const panelBlock = $('.panel');
       const arr = [];
@@ -76,6 +76,7 @@ function reptile(url, type) {
       }
       superAdminMap.create(arr, function(err, doc) {
         console.log(err);
+        console.log(doc);
       });
     }
   });
