@@ -14,7 +14,7 @@ const mongo = require('./mongo');
 const log = require('./logger').createLogger('express');
 const app = express();
 
-exports.start = function() {
+exports.start = function () {
   app.use(express.static(path.resolve(__dirname, '../public')));
   app.get('/#*', (req, res) => {
     const html = fs.readFileSync(path.resolve(__dirname, '../public/index.html'), 'utf-8');
@@ -35,11 +35,14 @@ exports.start = function() {
 
   // parse application/x-www-form-urlencoded
   app.use(bodyParser.urlencoded({
+    limit: '50mb',
     extended: false
   }));
 
   // parse application/json
-  app.use(bodyParser.json());
+  app.use(bodyParser.json({
+    limit: '50mb'
+  }));
 
   app.use(session(sess)); // Set session middleware
 
@@ -54,7 +57,7 @@ exports.start = function() {
   passport.deserializeUser(User.deserializeUser());
 
 
-  app.all('*', function(req, res, next) {
+  app.all('*', function (req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type,Authorization');
     res.setHeader('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS');
