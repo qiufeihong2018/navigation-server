@@ -80,9 +80,14 @@ router.post('/register', function(req, res, next) {
   User.register(new User({ username: req.body.username }), req.body.password, function(err) {
     if (err) {
       log.error(err);
+      // res.status(500).json({
+      //   err: 'REGISTER_FAILURE',
+      //   message: AUTH_ERR.REGISTER_FAILURE
+      // });
+      // 捕捉所有报错
       res.status(500).json({
-        err: 'REGISTER_FAILURE',
-        message: AUTH_ERR.REGISTER_FAILURE
+        err: err.name,
+        message: err.message
       });
       return;
     }
@@ -141,7 +146,7 @@ router.post('/login', isAhenticated, passport.authenticate('local'), function(re
 });
 
 /**
- * @api {post} /auth/user/:username User delete
+ * @api {delete} /auth/user/:username User delete
  * @apiName UserDelete
  * @apiGroup userAuthentication
  *
