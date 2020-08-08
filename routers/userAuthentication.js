@@ -128,7 +128,8 @@ router.post('/register', function(req, res, next) {
  *      "message": "Authenticate failure"
  *   }
  */
-router.post('/login', isAhenticated, passport.authenticate('local'), function(req, res) {
+router.post('/login', passport.authenticate('local'), function(req, res) {
+  // router.post('/login', isAhenticated, passport.authenticate('local'), function(req, res) {
   if (req.user) {
     log.info(`${req.user.username} login in successful`);
     res.json({
@@ -329,45 +330,45 @@ router.get('/logout', function(req, res) {
 });
 
 
-function isAhenticated(req, res, next) {
-  User.findOne({ 'username': req.body.username }, (err, user) => {
-    if (err) {
-      log.error(err);
-      res.json({
-        err: 'SERVER_ERROR',
-        message: COMM_ERR.SERVER_ERROR
-      });
-      return;
-    }
-    // If user is not existed
-    if (!user) {
-      res.json({
-        err: 'USER_NOT_EXIST',
-        message: AUTH_ERR.USER_NOT_EXIST
-      });
+// function isAhenticated(req, res, next) {
+//   User.findOne({ 'username': req.body.username }, (err, user) => {
+//     if (err) {
+//       log.error(err);
+//       res.json({
+//         err: 'SERVER_ERROR',
+//         message: COMM_ERR.SERVER_ERROR
+//       });
+//       return;
+//     }
+//     // If user is not existed
+//     if (!user) {
+//       res.json({
+//         err: 'USER_NOT_EXIST',
+//         message: AUTH_ERR.USER_NOT_EXIST
+//       });
 
-      return;
-    }
+//       return;
+//     }
 
 
-    user.authenticate(req.body.password, (err, value) => {
-      if (err) {
-        log.error(err);
-        res.json({
-          err: 'SERVER_ERROR',
-          message: COMM_ERR.SERVER_ERROR
-        });
-      } else if (value) {
-        return next();
-      } else {
-        res.json({
-          err: 'AUTHENTICATE_FAILURE',
-          message: AUTH_ERR.AUTHENTICATE_FAILURE
-        });
-      }
-    });
-  });
-}
+//     user.authenticate(req.body.password, (err, value) => {
+//       if (err) {
+//         log.error(err);
+//         res.json({
+//           err: 'SERVER_ERROR',
+//           message: COMM_ERR.SERVER_ERROR
+//         });
+//       } else if (value) {
+//         return next();
+//       } else {
+//         res.json({
+//           err: 'AUTHENTICATE_FAILURE',
+//           message: AUTH_ERR.AUTHENTICATE_FAILURE
+//         });
+//       }
+//     });
+//   });
+// }
 
 
 module.exports = router;
