@@ -128,7 +128,7 @@ router.post('/register', function(req, res, next) {
  *      "message": "Authenticate failure"
  *   }
  */
-router.post('/login', passport.authenticate('local'), function(req, res) {
+router.post('/login', function(req, res) {
   // router.post('/login', isAhenticated, passport.authenticate('local'), function(req, res) {
   if (req.user) {
     log.info(`${req.user.username} login in successful`);
