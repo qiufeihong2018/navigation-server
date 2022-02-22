@@ -10,7 +10,7 @@
 
 English | [简体中文](./README-zh.md)
 
-### 🏠 [Homepage](http://navigation.qiufeihong.top)
+### 🏠  ~~[http://navigation.qiufeihong.top](http://navigation.qiufeihong.top)~~
 
 ## [Front-end project](https://github.com/qiufeihong2018/navigation-web)
 
@@ -69,7 +69,7 @@ Contributions, issues and feature requests are welcome!<br />Feel free to check 
 
 ## Online Demo
 
-[Preview](http://navigation.qiufeihong.top)
+ ~~[http://navigation.qiufeihong.top](http://navigation.qiufeihong.top)~~
 
 ## Apidoc
 
