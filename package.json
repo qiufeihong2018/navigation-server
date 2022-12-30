@@ -38,7 +38,7 @@
     "cz-conventional-changelog": "^2.1.0",
     "db": "^1.1.1",
     "eslint": "^5.16.0",
-    "mocha": "^6.1.4",
+    "mocha": "^10.2.0",
     "mochawesome": "^4.0.0",
     "request": "^2.88.0",
     "should": "^13.2.3",
