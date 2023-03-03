@@ -34,11 +34,11 @@
   },
   "devDependencies": {
     "cheerio": "^1.0.0-rc.3",
-    "commitizen": "^3.1.1",
+    "commitizen": "^4.3.0",
     "cz-conventional-changelog": "^2.1.0",
     "db": "^1.1.1",
     "eslint": "^5.16.0",
-    "mocha": "^6.1.4",
+    "mocha": "^6.2.3",
     "mochawesome": "^4.0.0",
     "request": "^2.88.0",
     "should": "^13.2.3",
